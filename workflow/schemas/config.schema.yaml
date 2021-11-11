@@ -17,3 +17,21 @@ properties:
     - units
     - resources
     - default_container
+
+  gene_fuse:
+    type: object
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for gene_fuse
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      genes:
+        type: string
+        description: path to gene files used by gene_fuse
+      extra:
+        type: string
+        description: extra parameters to gene_fuse
+      required:
+        - genes

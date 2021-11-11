@@ -47,7 +47,7 @@ wildcard_constraints:
 
 def compile_output_list(wildcards):
     return [
-        "fusions/dummy/%s_%s.dummy.txt" % (sample, t)
+        "fusions/gene_fuse/%s_%s_gene_fuse_fusions.txt" % (sample, t)
         for sample in get_samples(samples)
         for t in get_unit_types(units, sample)
     ]

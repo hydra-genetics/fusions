@@ -3,3 +3,10 @@ samples: "samples.tsv"
 units: "units.tsv"
 
 default_container: "docker://marrip/common:1.1.0"
+
+reference:
+  fasta: "reference/HES45.fna"
+
+gene_fuse:
+  container: "docker://gmsuppsala/somatic:develop"
+  genes: "reference/gene_fuse_HES4.hg19.csv"

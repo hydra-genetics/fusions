@@ -8,5 +8,5 @@ reference:
   fasta: "reference/HES45.fna"
 
 gene_fuse:
-  container: "docker://gmsuppsala/somatic:develop"
+  container: "docker://hydragenetics/genefuse:0.6.1"
   genes: "reference/gene_fuse_HES4.hg19.csv"

@@ -1,7 +1,0 @@
-{
-	"command":"genefuse -r reference/HES45.fna -f reference/gene_fuse_HES4.hg19.csv -1 prealignment/merged/NA12878_N_fastq1.fq.gz -2 prealignment/merged/NA12878_N_fastq2.fq.gz -h fusions/gene_fuse/NA12878_N_gene_fuse_report.html ",
-	"version":"0.6.1",
-	"time":"2021-11-12      07:52:21",
-	"fusions":{
-	}
-}

@@ -36,4 +36,4 @@ rule gene_fuse:
     message:
         "{rule}: Find DNA-fusion using geneFuse in fusions/{rule}/{wildcards.sample}_{wildcards.type}"
     shell:
-        "(genefuse -r {input.ref} -f {input.genes} -1 {input.fastq1} -2 {input.fastq2} -h {output.html} {params.extra} > {output.fusions}) &> {log}"
+        "(genefuse -t {threads} -r {input.ref} -f {input.genes} -1 {input.fastq1} -2 {input.fastq2} -h {output.html} {params.extra} > {output.fusions}) &> {log}"

@@ -9,8 +9,8 @@ __license__ = "GPL-3"
 
 rule gene_fuse:
     input:
-        fastq1="prealignment/merged/{sample}_{type}_fastq1.fq.gz",
-        fastq2="prealignment/merged/{sample}_{type}_fastq2.fq.gz",
+        fastq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
+        fastq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
         genes=config["gene_fuse"]["genes"],
         ref=config["reference"]["fasta"],
     output:
@@ -36,4 +36,4 @@ rule gene_fuse:
     message:
         "{rule}: Find DNA-fusion using geneFuse in fusions/{rule}/{wildcards.sample}_{wildcards.type}"
     shell:
-        "(genefuse -r {input.ref} -f {input.genes} -1 {input.fastq1} -2 {input.fastq2} -h {output.html} {params.extra} > {output.fusions}) &> {log}"
+        "(genefuse -t {threads} -r {input.ref} -f {input.genes} -1 {input.fastq1} -2 {input.fastq2} -h {output.html} {params.extra} > {output.fusions}) &> {log}"

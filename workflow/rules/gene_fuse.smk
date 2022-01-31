@@ -19,9 +19,12 @@ rule gene_fuse:
     params:
         extra=config.get("gene_fuse", {}).get("extra", ""),
     log:
-        "fusions/gene_fuse/{sample}_{type}.log",
+        "fusions/gene_fuse/{sample}_{type}_gene_fuse_fusions.txt.log",
     benchmark:
-        repeat("fusions/gene_fuse/{sample}_{type}.benchmark.tsv", config.get("gene_fuse", {}).get("benchmark_repeats", 1))
+        repeat(
+            "fusions/gene_fuse/{sample}_{type}_gene_fuse_fusions.txt.benchmark.tsv",
+            config.get("gene_fuse", {}).get("benchmark_repeats", 1),
+        )
     threads: config.get("gene_fuse", {}).get("threads", config["default_resources"]["threads"])
     resources:
         threads=config.get("gene_fuse", {}).get("threads", config["default_resources"]["threads"]),
@@ -36,4 +39,12 @@ rule gene_fuse:
     message:
         "{rule}: Find DNA-fusion using geneFuse in fusions/{rule}/{wildcards.sample}_{wildcards.type}"
     shell:
-        "(genefuse -t {threads} -r {input.ref} -f {input.genes} -1 {input.fastq1} -2 {input.fastq2} -h {output.html} {params.extra} > {output.fusions}) &> {log}"
+        "(genefuse -t {threads} "
+        "-r {input.ref} "
+        "-f {input.genes} "
+        "-1 {input.fastq1} "
+        "-2 {input.fastq2} "
+        "-h {output.html} "
+        "{params.extra} > "
+        "{output.fusions}) "
+        "&> {log}"

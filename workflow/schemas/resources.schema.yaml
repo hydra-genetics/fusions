@@ -20,7 +20,6 @@ properties:
       partition:
         type: string
         description: default partition to use on the cluser for a rule
-
   required:
     - default_resources
 
@@ -42,3 +41,22 @@ properties:
       partition:
         type: string
         description: partition to use on the cluser for 'gene_fuse'
+
+  gene_fuse_report:
+    type: object
+    properties:
+      threads:
+        type: integer
+        description: number of threads that will be used by 'gene_fuse_report'
+      time:
+        type: string
+        description: max execution time for 'gene_fuse_report'
+      mem_mb:
+        type: integer
+        description: memory used for 'gene_fuse_report'
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu for 'gene_fuse_report'
+      partition:
+        type: string
+        description: partition to use on the cluser for 'gene_fuse_report'

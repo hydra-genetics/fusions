@@ -46,8 +46,16 @@ wildcard_constraints:
 
 
 def compile_output_list(wildcards):
-    return [
-        "fusions/gene_fuse/%s_%s_gene_fuse_fusions.txt" % (sample, t)
+    files = {
+        "fusions/gene_fuse_report": [
+            "_gene_fuse_fusions_report.txt",
+        ],
+    }
+    output_files = [
+        "%s/%s_%s%s" % (prefix, sample, unit_type, suffix)
+        for prefix in files.keys()
         for sample in get_samples(samples)
-        for t in get_unit_types(units, sample)
+        for unit_type in get_unit_types(units, sample)
+        for suffix in files[prefix]
     ]
+    return output_files

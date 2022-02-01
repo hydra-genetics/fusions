@@ -47,9 +47,6 @@ wildcard_constraints:
 
 def compile_output_list(wildcards):
     files = {
-        "fusions/gene_fuse": [
-            "_gene_fuse_fusions.txt",
-        ],
         "fusions/gene_fuse_report": [
             "_gene_fuse_fusions_report.txt",
         ],

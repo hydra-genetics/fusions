@@ -11,7 +11,7 @@ rule star_fusion:
     input:
         fq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
         fq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
-        star_fusion_genome_path=config["reference"]["star_fusion"],
+        star_fusion_genome_path=config.get("reference", {}).get("star_fusion", ""),
     output:
         fusions=temp("fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.tsv"),
         fusions_abridged=temp("fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.abridged.tsv"),

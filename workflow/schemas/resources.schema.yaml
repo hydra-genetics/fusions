@@ -60,3 +60,22 @@ properties:
       partition:
         type: string
         description: partition to use on the cluser for 'gene_fuse_report'
+
+  star_fusion:
+    type: object
+    properties:
+      threads:
+        type: integer
+        description: number of threads that will be used by 'star_fusion'
+      time:
+        type: string
+        description: max execution time for 'star_fusion'
+      mem_mb:
+        type: integer
+        description: memory used for 'star_fusion'
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu for 'star_fusion'
+      partition:
+        type: string
+        description: partition to use on the cluser for 'star_fusion'

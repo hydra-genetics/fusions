@@ -37,6 +37,14 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 units = pandas.read_table(config["units"], dtype=str).set_index(["sample", "type", "flowcell", "lane"], drop=False)
 validate(units, schema="../schemas/units.schema.yaml")
 
+### Validate sample type specific schemas
+
+sample_types = set().union(*[get_unit_types(units, sample) for sample in get_samples(samples)])
+if not sample_types.isdisjoint(set(["N", "T"])):
+    validate(config, schema="../schemas/config.dna.schema.yaml")
+if not sample_types.isdisjoint(set(["R"])):
+    validate(config, schema="../schemas/config.rna.schema.yaml")
+
 ### Set wildcard constraints
 
 
@@ -47,15 +55,26 @@ wildcard_constraints:
 
 def compile_output_list(wildcards):
     files = {
-        "fusions/gene_fuse_report": [
-            "_gene_fuse_fusions_report.txt",
-        ],
+        "fusions/gene_fuse_report": ["_gene_fuse_fusions_report.txt"],
     }
     output_files = [
-        "%s/%s_%s%s" % (prefix, sample, unit_type, suffix)
+        "%s/%s_%s%s" % (prefix, sample, "N", suffix)
         for prefix in files.keys()
         for sample in get_samples(samples)
-        for unit_type in get_unit_types(units, sample)
+        if "N" in get_unit_types(units, sample)
         for suffix in files[prefix]
     ]
+    files = {
+        "fusions/star_fusion": ["star-fusion.fusion_predictions.tsv"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_%s/%s" % (prefix, sample, "R", suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "R" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
+    print(output_files)
     return output_files

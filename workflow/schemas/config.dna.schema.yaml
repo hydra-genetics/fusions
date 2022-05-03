@@ -1,0 +1,60 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake configuration file
+type: object
+properties:
+  samples:
+    type: string
+  units:
+    type: string
+  resources:
+    type: string
+    description: Path to resources.yaml file
+  default_container:
+    type: string
+    description: name or path to a default docker/singularity container
+  required:
+    - reference
+
+  gene_fuse:
+    type: object
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for gene_fuse
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      genes:
+        type: string
+        description: path to gene files used by gene_fuse
+      extra:
+        type: string
+        description: extra parameters to gene_fuse
+      required:
+        - genes
+
+    gene_fuse_report:
+      type: object
+      properties:
+        benchmark_repeats:
+          type: integer
+          description: set number of times benchmark should be repeated for gene_fuse_report
+        container:
+          type: string
+          description: name or path to docker/singularity container
+        genes:
+          type: string
+          description: path to gene files used by gene_fuse_report
+        unique_read_limit:
+          type: integer
+          description: Lower limit (not inclusive) of unique reads needed for fusion to be included in report
+
+    reference:
+      type: object
+      description: reference used by alignment
+      properties:
+        fasta:
+          type: string
+          description: fasta reference file
+      required:
+        - fasta

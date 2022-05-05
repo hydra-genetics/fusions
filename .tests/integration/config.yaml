@@ -14,3 +14,4 @@ gene_fuse:
 
 star_fusion:
   container: "docker://hydragenetics/star-fusion:1.10.1"
+  genome_path: ""

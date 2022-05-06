@@ -50,7 +50,7 @@ def compile_output_list(wildcards):
         "fusions/gene_fuse_report": ["_gene_fuse_fusions_report.txt"],
     }
     output_files = [
-        "%s/%s_%s%s" % (prefix, sample, "N", suffix)
+        "%s/%s_N%s" % (prefix, sample, suffix)
         for prefix in files.keys()
         for sample in get_samples(samples)
         if "N" in get_unit_types(units, sample)
@@ -61,7 +61,7 @@ def compile_output_list(wildcards):
     }
     output_files.extend(
         [
-            "%s/%s_%s/%s" % (prefix, sample, "R", suffix)
+            "%s/%s_R/%s" % (prefix, sample, suffix)
             for prefix in files.keys()
             for sample in get_samples(samples)
             if "R" in get_unit_types(units, sample)

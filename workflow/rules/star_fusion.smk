@@ -11,10 +11,12 @@ rule star_fusion:
     input:
         fq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
         fq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
-        star_fusion_genome_path=config["star_fusion"]["genome_path"],
+        genome_path=config["star_fusion"]["genome_path"],
     output:
         fusions=temp("fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.tsv"),
         fusions_abridged=temp("fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.abridged.tsv"),
+        bam=temp("fusions/star_fusion/{sample}_{type}/Aligned.out.bam"),
+        sj=temp("fusions/star_fusion/{sample}_{type}/SJ.out.tab"),
     params:
         output_dir=temp(directory("fusions/star_fusion/{sample}_{type}/")),
         extra=config.get("star_fusion", {}).get("extra", "--examine_coding_effect"),
@@ -37,11 +39,12 @@ rule star_fusion:
     conda:
         "../envs/star_fusion.yaml"
     message:
-        "{rule}: Find RNA-fusion using star-fusion in fusions/{rule}/{wildcards.sample}_{wildcards.type}"
+        "{rule}: Find RNA-fusion using star-fusion and put results in {output.fusions}"
     shell:
         "(STAR-Fusion "
-        "--genome_lib_dir {input.star_fusion_genome_path} "
+        "--genome_lib_dir {input.genome_path} "
         "--left_fq {input.fq1} "
         "--right_fq {input.fq2} "
         "--output_dir {params.output_dir}) "
+        "{extra} "
         "&> {log}"

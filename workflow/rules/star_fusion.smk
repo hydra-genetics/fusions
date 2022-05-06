@@ -46,5 +46,6 @@ rule star_fusion:
         "--left_fq {input.fq1} "
         "--right_fq {input.fq2} "
         "--output_dir {params.output_dir}) "
+        "--CPU {threads} "
         "{extra} "
         "&> {log}"

@@ -4,13 +4,8 @@ type: object
 properties:
   default_resources:
     type: object
+    description: default resource definitions
     properties:
-      threads:
-        type: integer
-        description: default number of threads that will be used by a rule
-      time:
-        type: string
-        description: default max execution time for a rule
       mem_mb:
         type: integer
         description: default memory used for a rule
@@ -20,62 +15,71 @@ properties:
       partition:
         type: string
         description: default partition to use on the cluser for a rule
+      threads:
+        type: integer
+        description: default number of threads that will be used by a rule
+      time:
+        type: string
+        description: default max execution time for a rule
   required:
     - default_resources
 
   gene_fuse:
     type: object
+    description: resource definitions for gene_fuse
     properties:
       threads:
         type: integer
-        description: number of threads that will be used by 'gene_fuse'
+        description: number of threads that will be used by rule
       time:
         type: string
-        description: max execution time for 'gene_fuse'
+        description: max execution time for rule
       mem_mb:
         type: integer
-        description: memory used for 'gene_fuse'
+        description: memory used for rule
       mem_per_cpu:
         type: integer
-        description: memory used per cpu for 'gene_fuse'
+        description: memory used per cpu for rule
       partition:
         type: string
-        description: partition to use on the cluser for 'gene_fuse'
+        description: partition to use on the cluser for rule
 
   gene_fuse_report:
     type: object
+    description: resource definitions for gene_fuse_report
     properties:
-      threads:
-        type: integer
-        description: number of threads that will be used by 'gene_fuse_report'
-      time:
-        type: string
-        description: max execution time for 'gene_fuse_report'
       mem_mb:
         type: integer
-        description: memory used for 'gene_fuse_report'
+        description: memory used for rule
       mem_per_cpu:
         type: integer
-        description: memory used per cpu for 'gene_fuse_report'
+        description: memory used per cpu for rule
       partition:
         type: string
-        description: partition to use on the cluser for 'gene_fuse_report'
+        description: partition to use on the cluser for rule
+      threads:
+        type: integer
+        description: number of threads that will be used by rule
+      time:
+        type: string
+        description: max execution time for rule
 
   star_fusion:
     type: object
+    description: resource definitions for star_fusion
     properties:
-      threads:
-        type: integer
-        description: number of threads that will be used by 'star_fusion'
-      time:
-        type: string
-        description: max execution time for 'star_fusion'
       mem_mb:
         type: integer
-        description: memory used for 'star_fusion'
+        description: memory used for rule
       mem_per_cpu:
         type: integer
-        description: memory used per cpu for 'star_fusion'
+        description: memory used per cpu for rule
       partition:
         type: string
-        description: partition to use on the cluser for 'star_fusion'
+        description: partition to use on the cluser for rule
+      threads:
+        type: integer
+        description: number of threads that will be used by rule
+      time:
+        type: string
+        description: max execution time for rule

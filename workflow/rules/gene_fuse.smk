@@ -12,7 +12,7 @@ rule gene_fuse:
         fastq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
         fastq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
         genes=config.get("gene_fuse").get("genes", ""),
-        ref=config.get("reference").get("fasta", ""),
+        ref=config.get("gene_fuse").get("fasta", ""),
     output:
         html=temp("fusions/gene_fuse/{sample}_{type}_gene_fuse_report.html"),
         fusions=temp("fusions/gene_fuse/{sample}_{type}_gene_fuse_fusions.txt"),

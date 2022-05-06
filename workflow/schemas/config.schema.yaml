@@ -17,3 +17,60 @@ properties:
     - units
     - resources
     - default_container
+
+
+  gene_fuse:
+    type: object
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for rule
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      fasta:
+        type: string
+        description: fasta reference file
+      genes:
+        type: string
+        description: path to gene files used by gene_fuse
+      extra:
+        type: string
+        description: extra parameters to rule
+      required:
+        - genes
+        - fasta
+
+    gene_fuse_report:
+      type: object
+      properties:
+        benchmark_repeats:
+          type: integer
+          description: set number of times benchmark should be repeated for rule
+        container:
+          type: string
+          description: name or path to docker/singularity container
+        genes:
+          type: string
+          description: path to gene files used by gene_fuse_report
+        unique_read_limit:
+          type: integer
+          description: Lower limit (not inclusive) of unique reads needed for fusion to be included in report
+
+  star_fusion:
+    type: object
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for rule
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      genome_path:
+        type: string
+        description: star-fusion reference path
+      extra:
+        type: string
+        description: extra parameters to rule
+    required:
+      - genome_path

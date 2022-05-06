@@ -37,14 +37,6 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 units = pandas.read_table(config["units"], dtype=str).set_index(["sample", "type", "flowcell", "lane"], drop=False)
 validate(units, schema="../schemas/units.schema.yaml")
 
-### Validate sample type specific schemas
-
-sample_types = set().union(*[get_unit_types(units, sample) for sample in get_samples(samples)])
-if not sample_types.isdisjoint(set(["N", "T"])):
-    validate(config, schema="../schemas/config.dna.schema.yaml")
-if not sample_types.isdisjoint(set(["R"])):
-    validate(config, schema="../schemas/config.rna.schema.yaml")
-
 ### Set wildcard constraints
 
 

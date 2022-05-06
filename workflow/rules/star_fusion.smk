@@ -42,6 +42,6 @@ rule star_fusion:
         "(STAR-Fusion "
         "--genome_lib_dir {input.star_fusion_genome_path} "
         "--left_fq {input.fq1} "
-        "--right_fq {input.fq1} "
+        "--right_fq {input.fq2} "
         "--output_dir {params.output_dir}) "
         "&> {log}"

@@ -1,6 +1,3 @@
-# vim: syntax=python tabstop=4 expandtab
-# coding: utf-8
-
 __author__ = "Jonas Almlöf"
 __copyright__ = "Copyright 2022, Jonas Almlöf"
 __email__ = "jonas.almlof@scilifelab.uu.se"

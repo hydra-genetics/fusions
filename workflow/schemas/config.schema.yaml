@@ -21,6 +21,7 @@ properties:
 
   gene_fuse:
     type: object
+    description: parameters for gene fuse
     properties:
       benchmark_repeats:
         type: integer
@@ -43,6 +44,7 @@ properties:
 
     gene_fuse_report:
       type: object
+      description: parameters for gene fuse report generation
       properties:
         benchmark_repeats:
           type: integer
@@ -59,6 +61,7 @@ properties:
 
   star_fusion:
     type: object
+    description: parameters for star fusion
     properties:
       benchmark_repeats:
         type: integer

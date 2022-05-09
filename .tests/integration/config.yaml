@@ -2,11 +2,13 @@ resources: "resources.yaml"
 samples: "samples.tsv"
 units: "units.tsv"
 
-default_container: "docker://hydragenetics/common:0.1.0"
-
-reference:
-  fasta: "reference/HES45.fna"
+default_container: "docker://hydragenetics/common:0.1.3"
 
 gene_fuse:
   container: "docker://hydragenetics/genefuse:0.6.1"
   genes: "reference/gene_fuse_HES4.hg19.csv"
+  fasta: "reference/HES45.fna"
+
+star_fusion:
+  container: "docker://hydragenetics/star-fusion:1.10.1"
+  genome_path: "reference/"

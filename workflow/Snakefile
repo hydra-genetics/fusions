@@ -10,6 +10,7 @@ __license__ = "GPL-3"
 include: "rules/common.smk"
 include: "rules/gene_fuse.smk"
 include: "rules/gene_fuse_report.smk"
+include: "rules/star_fusion.smk"
 
 
 report: "report/workflow.rst"

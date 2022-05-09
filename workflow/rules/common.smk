@@ -1,6 +1,3 @@
-# vim: syntax=python tabstop=4 expandtab
-# coding: utf-8
-
 __author__ = "Jonas A"
 __copyright__ = "Copyright 2021, Jonas A"
 __email__ = "jonas.almlof@igp.uu.se"
@@ -47,15 +44,26 @@ wildcard_constraints:
 
 def compile_output_list(wildcards):
     files = {
-        "fusions/gene_fuse_report": [
-            "_gene_fuse_fusions_report.txt",
-        ],
+        "fusions/gene_fuse_report": ["_gene_fuse_fusions_report.txt"],
     }
     output_files = [
-        "%s/%s_%s%s" % (prefix, sample, unit_type, suffix)
+        "%s/%s_N%s" % (prefix, sample, suffix)
         for prefix in files.keys()
         for sample in get_samples(samples)
-        for unit_type in get_unit_types(units, sample)
+        if "N" in get_unit_types(units, sample)
         for suffix in files[prefix]
     ]
+    files = {
+        "fusions/star_fusion": ["star-fusion.fusion_predictions.tsv"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_R/%s" % (prefix, sample, suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "R" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
+    print(output_files)
     return output_files

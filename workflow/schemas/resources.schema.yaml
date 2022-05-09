@@ -14,7 +14,7 @@ properties:
         description: default memory used per cpu for a rule
       partition:
         type: string
-        description: default partition to use on the clusetr for a rule
+        description: default partition to use on the cluster for a rule
       threads:
         type: integer
         description: default number of threads that will be used by a rule

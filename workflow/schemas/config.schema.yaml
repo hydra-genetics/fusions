@@ -18,6 +18,24 @@ properties:
     - resources
     - default_container
 
+  fusioncatcher:
+    type: object
+    description: parameters for fusioncatcher
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for rule
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      genome_path:
+        type: string
+        description: star-fusion reference path
+      extra:
+        type: string
+        description: extra parameters to rule
+    required:
+      - genome_path
 
   gene_fuse:
     type: object

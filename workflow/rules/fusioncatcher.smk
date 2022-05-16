@@ -10,8 +10,8 @@ rule fusioncatcher:
         fq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
         genome_path=config.get("fusioncatcher", {}).get("genome_path", ""),
     output:
-        fusions=temp("fusions/fusioncatcher/{sample}_{type}/FusionCatcher_final-list_candidate-fusion-genes.hg19.txt"),
-        fusions_summary=temp("fusions/fusioncatcher/{sample}_{type}/FusionCatcher_summary_candidate_fusions.txt"),
+        fusions=temp("fusions/fusioncatcher/{sample}_{type}/final-list_candidate-fusion-genes.hg19.txt"),
+        fusions_summary=temp("fusions/fusioncatcher/{sample}_{type}/summary_candidate_fusions.txt"),
     params:
         output_dir=temp(directory("fusions/fusioncatcher/{sample}_{type}/")),
         genome_path=config.get("fusioncatcher", {}).get("genome_path", ""),

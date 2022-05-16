@@ -54,12 +54,23 @@ def compile_output_list(wildcards):
         for suffix in files[prefix]
     ]
     files = {
-        "fusions/star_fusion": ["/star-fusion.fusion_predictions.tsv"],
         "fusions/arriba": [".fusions.tsv"],
     }
     output_files.extend(
         [
             "%s/%s_R%s" % (prefix, sample, suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "R" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
+    files = {
+        "fusions/star_fusion": ["star-fusion.fusion_predictions.tsv"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_R/%s" % (prefix, sample, suffix)
             for prefix in files.keys()
             for sample in get_samples(samples)
             if "R" in get_unit_types(units, sample)

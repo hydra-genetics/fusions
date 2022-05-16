@@ -55,7 +55,7 @@ def compile_output_list(wildcards):
     ]
     files = {
         "fusions/star_fusion": ["star-fusion.fusion_predictions.tsv"],
-        "fusions/fusioncatcher": ["FusionCatcher_final-list_candidate-fusion-genes.hg19.txt"],
+        "fusions/fusioncatcher": ["final-list_candidate-fusion-genes.hg19.txt"],
     }
     output_files.extend(
         [

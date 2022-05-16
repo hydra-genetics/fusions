@@ -37,7 +37,7 @@ rule fusioncatcher:
     message:
         "{rule}: find RNA-fusion using fusioncatcher and put results in {output.fusions}"
     shell:
-        "(/opt/fusioncatcher/v1.20/bin/fusioncatcher.py "
+        "(fusioncatcher "
         "-d {input.genome_path} "
         "-i {input.fq1},{input.fq2} "
         "-o {params.output_dir} "

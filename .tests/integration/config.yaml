@@ -14,5 +14,5 @@ star_fusion:
   genome_path: "reference/"
 
 fusioncatcher:
-  container: "docker://hydragenetics/fusioncatcher:1.33"
+  container: "docker://blcdsdockerregistry/fusioncatcher:1.33"
   genome_path: "reference/"

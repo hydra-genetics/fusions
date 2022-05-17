@@ -4,6 +4,12 @@ units: "units.tsv"
 
 default_container: "docker://hydragenetics/common:0.1.3"
 
+arriba:
+  assembly: "reference/WASH7P.fna"
+  blacklist: "reference/arriba_blacklist.tsv"
+  container: "docker://hydragenetics/arriba:2.2.1"
+  gtf: "reference/WASH7P.gtf"
+
 gene_fuse:
   container: "docker://hydragenetics/genefuse:0.6.1"
   genes: "reference/gene_fuse_HES4.hg19.csv"

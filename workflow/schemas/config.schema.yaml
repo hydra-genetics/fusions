@@ -18,6 +18,32 @@ properties:
     - resources
     - default_container
 
+  arriba:
+    type: object
+    description: parameters for arriba
+    properties:
+      assembly:
+        type: string
+        description: path to assembly file
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      blacklist:
+        type: string
+        description: path to file containing a blacklist
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: extra parameters
+      gtf:
+        type: string
+        description: path to gtf file containing annotations
+    required:
+      - assembly
+      - blacklist
+      - gtf
 
   gene_fuse:
     type: object
@@ -42,22 +68,22 @@ properties:
         - genes
         - fasta
 
-    gene_fuse_report:
-      type: object
-      description: parameters for gene fuse report generation
-      properties:
-        benchmark_repeats:
-          type: integer
-          description: set number of times benchmark should be repeated for rule
-        container:
-          type: string
-          description: name or path to docker/singularity container
-        genes:
-          type: string
-          description: path to gene files used by gene_fuse_report
-        unique_read_limit:
-          type: integer
-          description: Lower limit (not inclusive) of unique reads needed for fusion to be included in report
+  gene_fuse_report:
+    type: object
+    description: parameters for gene fuse report generation
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for rule
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      genes:
+        type: string
+        description: path to gene files used by gene_fuse_report
+      unique_read_limit:
+        type: integer
+        description: Lower limit (not inclusive) of unique reads needed for fusion to be included in report
 
   star_fusion:
     type: object

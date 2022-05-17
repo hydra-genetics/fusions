@@ -44,16 +44,10 @@ properties:
         type: string
         description: partition to use on the cluster
 
-  gene_fuse:
+  fusioncatcher:
     type: object
-    description: resource definitions for gene_fuse
+    description: resource definitions for fusioncatcher
     properties:
-      threads:
-        type: integer
-        description: number of threads that will be used
-      time:
-        type: string
-        description: max execution time
       mem_mb:
         type: integer
         description: memory used
@@ -63,6 +57,32 @@ properties:
       partition:
         type: string
         description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: max execution time
+
+  gene_fuse:
+    type: object
+    description: resource definitions for gene_fuse
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: max execution time
 
   gene_fuse_report:
     type: object

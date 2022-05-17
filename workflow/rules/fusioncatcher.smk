@@ -17,10 +17,10 @@ rule fusioncatcher:
         genome_path=config.get("fusioncatcher", {}).get("genome_path", ""),
         extra=config.get("fusioncatcher", {}).get("extra", "--visualization-sam"),
     log:
-        "fusions/fusioncatcher/{sample}_{type}.FusionCatcher_summary_candidate_fusions.txt.log",
+        "fusions/fusioncatcher/{sample}_{type}.final-list_candidate-fusion-genes.hg19.txt.log",
     benchmark:
         repeat(
-            "fusions/fusioncatcher/{sample}_{type}.FusionCatcher_summary_candidate_fusions.txt.benchmark.tsv",
+            "fusions/fusioncatcher/{sample}_{type}.final-list_candidate-fusion-genes.hg19.txt.benchmark.tsv",
             config.get("fusioncatcher", {}).get("benchmark_repeats", 1),
         )
     threads: config.get("fusioncatcher", {}).get("threads", config["default_resources"]["threads"])

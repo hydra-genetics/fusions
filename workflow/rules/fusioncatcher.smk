@@ -39,7 +39,7 @@ rule fusioncatcher:
     shell:
         "(fusioncatcher "
         "-d {input.genome_path} "
-        "--config=usr/local/etc/configuration.cfg "
+        "--config=/usr/local/etc/configuration.cfg "
         "-i {input.fq1},{input.fq2} "
         "-o {params.output_dir} "
         "-p {threads} "

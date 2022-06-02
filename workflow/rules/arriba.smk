@@ -44,3 +44,42 @@ rule arriba:
         "-x {input.bam} "
         "-o {output.fusions} "
         "-O {output.fusions_dis}) &> {log}"
+
+
+rule arriba_draw_fusion:
+    input:
+        bam="alignment/star/{sample}_{type}.bam",
+        cytobands=config.get("arriba_draw_fusion", {}).get("cytobands", ""),
+        fusions="fusions/arriba/{sample}_{type}.fusions.tsv",
+        gtf=config.get("arriba_draw_fusion", {}).get("gtf", ""),
+        protein_domains=config.get("arriba_draw_fusion", {}).get("protein_domains", ""),
+    output:
+        pdf=temp("fusions/arriba_draw_fusion/{sample}_{type}.pdf"),
+    log:
+        "fusions/arriba_draw_fusion/{sample}_{type}.pdf.log",
+    benchmark:
+        repeat(
+            "fusions/arriba_draw_fusion/{sample}_{type}.pdf.benchmark.tsv",
+            config.get("arriba_draw_fusion", {}).get("benchmark_repeats", 1),
+        )
+    threads: config.get("arriba_draw_fusion", {}).get("threads", config["default_resources"]["threads"])
+    resources:
+        mem_mb=config.get("arriba_draw_fusion", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("arriba_draw_fusion", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("arriba_draw_fusion", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("arriba_draw_fusion", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("arriba_draw_fusion", {}).get("time", config["default_resources"]["time"]),
+    container:
+        config.get("arriba_draw_fusion", {}).get("container", config["default_container"])
+    conda:
+        "../envs/arriba.yaml"
+    message:
+        "{rule}: draw rna fusions into {output.pdf}"
+    shell:
+        "(./draw_fusions.R "
+        "--fusions={input.fusions} "
+        "--alignments={input.bam} "
+        "--output={output.pdf} "
+        "--annotation={input.gtf} "
+        "--cytobands={input.cytobands} "
+        "--proteinDomains={input.protein_domains}) &> {log}"

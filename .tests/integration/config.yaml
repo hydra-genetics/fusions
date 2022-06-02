@@ -10,6 +10,12 @@ arriba:
   container: "docker://hydragenetics/arriba:2.2.1"
   gtf: "reference/WASH7P.gtf"
 
+arriba_draw_fusion:
+  container: "docker://hydragenetics/arriba:2.2.1"
+  cytobands: "reference/cytobands_hg19_hs37d5_GRCh37_v2.2.1.tsv"
+  gtf: "reference/WASH7P.gtf"
+  protein_domains: "reference/protein_domains_hg19_hs37d5_GRCh37_v2.2.1.gff3"
+
 gene_fuse:
   container: "docker://hydragenetics/genefuse:0.6.1"
   genes: "reference/gene_fuse_HES4.hg19.csv"

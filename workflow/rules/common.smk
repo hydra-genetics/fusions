@@ -64,7 +64,7 @@ def compile_output_list(wildcards):
         for suffix in files[prefix]
     ]
     files = {
-        "fusions/arriba": [".pdf"],
+        "fusions/arriba_draw_fusion": [".pdf"],
     }
     output_files.extend(
         [

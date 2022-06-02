@@ -28,12 +28,6 @@ properties:
     type: object
     description: resource definitions for arriba
     properties:
-      threads:
-        type: integer
-        description: number of threads that will be used
-      time:
-        type: string
-        description: max execution time
       mem_mb:
         type: integer
         description: memory used
@@ -43,17 +37,17 @@ properties:
       partition:
         type: string
         description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: max execution time
 
   arriba_draw_fusion:
     type: object
     description: resource definitions for arriba
     properties:
-      threads:
-        type: integer
-        description: number of threads that will be used
-      time:
-        type: string
-        description: max execution time
       mem_mb:
         type: integer
         description: memory used
@@ -63,6 +57,12 @@ properties:
       partition:
         type: string
         description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: max execution time
 
   fusioncatcher:
     type: object

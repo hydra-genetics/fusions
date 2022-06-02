@@ -76,7 +76,7 @@ rule arriba_draw_fusion:
     message:
         "{rule}: draw rna fusions into {output.pdf}"
     shell:
-        "(./draw_fusions.R "
+        "(draw_fusions.R "
         "--fusions={input.fusions} "
         "--alignments={input.bam} "
         "--output={output.pdf} "

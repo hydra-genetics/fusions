@@ -18,25 +18,6 @@ properties:
     - resources
     - default_container
 
-  fusioncatcher:
-    type: object
-    description: parameters for fusioncatcher
-    properties:
-      benchmark_repeats:
-        type: integer
-        description: set number of times benchmark should be repeated for rule
-      container:
-        type: string
-        description: name or path to docker/singularity container
-      genome_path:
-        type: string
-        description: star-fusion reference path
-      extra:
-        type: string
-        description: extra parameters to rule
-    required:
-      - genome_path
-      
   arriba:
     type: object
     description: parameters for arriba
@@ -63,6 +44,49 @@ properties:
       - assembly
       - blacklist
       - gtf
+
+  arriba_draw_fusion:
+    type: object
+    description: parameters for arriba_draw_fusion
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      cytobands:
+        type: string
+        description: path to cytobands file
+      gtf:
+        type: string
+        description: path to gtf file containing annotations
+      protein_domains:
+        type: string
+        description: path to protein domain file
+    required:
+      - cytobands
+      - gtf
+      - protein_domains
+
+  fusioncatcher:
+    type: object
+    description: parameters for fusioncatcher
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated for rule
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      genome_path:
+        type: string
+        description: star-fusion reference path
+      extra:
+        type: string
+        description: extra parameters to rule
+    required:
+      - genome_path
 
   gene_fuse:
     type: object

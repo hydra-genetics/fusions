@@ -154,6 +154,31 @@ properties:
         type: string
         description: read group SM tag
 
+samtools_reheader:
+  type: object
+  description: parameters for samtools_reheader
+  properties:
+    benchmark_repeats:
+      type: integer
+      description: set number of times benchmark should be repeated for rule
+    container:
+      type: string
+      description: name or path to docker/singularity container
+    RGID:
+      type: string
+      description: read group ID tag
+    RGLB:
+      type: string
+      description: read group LB tag
+    RGPL:
+      type: string
+      description: read group PL tag
+    RGPU:
+      type: string
+      description: read group PU tag
+    RGSM:
+      type: string
+      description: read group SM tag
 
   star_fusion:
     type: object

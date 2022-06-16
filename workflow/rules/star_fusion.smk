@@ -47,9 +47,46 @@ rule star_fusion:
         "{params.extra}) &> {log}"
 
 
-rule picard_add_read_group:
+rule samtools_reheader:
     input:
         bam="fusions/star_fusion/{sample}_{type}/Aligned.out.bam",
+    output:
+        bam=temp("fusions/star_fusion/{sample}_{type}/Aligned.out.rg_header.bam"),
+    params:
+        RGID=config.get("samtools_reheader", {}).get("RGID", lambda wildcards: generate_read_group(wildcards)["ID"]),
+        RGLB=config.get("samtools_reheader", {}).get("RGLB", lambda wildcards: generate_read_group(wildcards)["LB"]),
+        RGPL=config.get("samtools_reheader", {}).get("RGPL", lambda wildcards: generate_read_group(wildcards)["PL"]),
+        RGPU=config.get("samtools_reheader", {}).get("RGPU", lambda wildcards: generate_read_group(wildcards)["PU"]),
+        RGSM=config.get("samtools_reheader", {}).get("RGSM", lambda wildcards: generate_read_group(wildcards)["SM"]),
+    log:
+        "fusions/star_fusion/{sample}_{type}/Aligned.out.rg_header.bam.log",
+    benchmark:
+        repeat(
+            "fusions/star_fusion/{sample}_{type}/Aligned.out.rg_header.bam.benchmark.tsv",
+            config.get("samtools_reheader", {}).get("benchmark_repeats", 1),
+        )
+    threads: config.get("samtools_reheader", {}).get("threads", config["default_resources"]["threads"])
+    resources:
+        mem_mb=config.get("samtools_reheader", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("samtools_reheader", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("samtools_reheader", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("samtools_reheader", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("samtools_reheader", {}).get("time", config["default_resources"]["time"]),
+    container:
+        config.get("samtools_reheader", {}).get("container", config["default_container"])
+    conda:
+        "../envs/samtools.yaml"
+    message:
+        "{rule}: fix readgroup header in output from star-fusion and put results in {output.bam}"
+    shell:
+        "(samtools view -H {input.bam} | "
+        "sed 's,^@RG.*,@RG\tID:{params.RGID}\tSM:{params.RGSM}\tLB:{params.RGLB}\tPL:{params.RGPL}\tPU:{params.RGPU},g' | "
+        "samtools reheader - {input.bam} > {output.bam}) &> {log}"
+
+
+rule picard_add_read_group:
+    input:
+        bam="fusions/star_fusion/{sample}_{type}/Aligned.out.rg_header.bam",
     output:
         bam=temp("fusions/star_fusion/{sample}_{type}/Aligned.out.rg.bam"),
     params:

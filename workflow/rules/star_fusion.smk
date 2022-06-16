@@ -79,7 +79,7 @@ rule picard_add_read_group:
     message:
         "{rule}: fix readgroup in output from star-fusion and put results in {output.bam}"
     shell:
-        "(java -jar picard.jar AddOrReplaceReadGroups "
+        "(picard AddOrReplaceReadGroups "
         "I={input.bam} "
         "O={output.bam} "
         "RGID={params.RGID} "

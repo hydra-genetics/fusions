@@ -31,7 +31,7 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 
 ### Read and validate units file
 
-units = pandas.read_table(config["units"], dtype=str).set_index(["sample", "type", "flowcell", "lane"], drop=False)
+units = pandas.read_table(config["units"], dtype=str).set_index(["sample", "type", "flowcell", "lane", "barcode"], drop=False)
 validate(units, schema="../schemas/units.schema.yaml")
 
 ### Set wildcard constraints
@@ -40,6 +40,16 @@ validate(units, schema="../schemas/units.schema.yaml")
 wildcard_constraints:
     sample="|".join(samples.index),
     unit="N|T|R",
+
+
+def generate_read_group(wildcards):
+    return {
+        "ID": "{}_{}.{}.{}".format(wildcards.sample, wildcards.type, "L001", "ATCG"),
+        "SM": "{}_{}".format(wildcards.sample, wildcards.type),
+        "PL": "nextseq",
+        "PU": "{}.{}.{}".format("ABC", "L001", "ATCG"),
+        "LB": "{}_{}".format(wildcards.sample, wildcards.type),
+    }
 
 
 def compile_output_list(wildcards):
@@ -67,6 +77,7 @@ def compile_output_list(wildcards):
     )
     files = {
         "fusions/star_fusion": ["star-fusion.fusion_predictions.tsv"],
+        "fusions/star_fusion": ["Aligned.out.rg.bam"],
         "fusions/fusioncatcher": ["final-list_candidate-fusion-genes.hg19.txt"],
     }
     output_files.extend(

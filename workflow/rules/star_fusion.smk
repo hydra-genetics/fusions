@@ -45,3 +45,45 @@ rule star_fusion:
         "--output_dir {params.output_dir} "
         "--CPU {threads} "
         "{params.extra}) &> {log}"
+
+
+rule picard_add_read_group:
+    input:
+        bam="fusions/star_fusion/{sample}_{type}/Aligned.out.bam",
+    output:
+        bam=temp("fusions/star_fusion/{sample}_{type}/Aligned.out.rg.bam"),
+    params:
+        RGID=config.get("picard_add_read_group", {}).get("RGID", lambda wildcards: generate_read_group(wildcards)["ID"]),
+        RGLB=config.get("picard_add_read_group", {}).get("RGLB", lambda wildcards: generate_read_group(wildcards)["LB"]),
+        RGPL=config.get("picard_add_read_group", {}).get("RGPL", lambda wildcards: generate_read_group(wildcards)["PL"]),
+        RGPU=config.get("picard_add_read_group", {}).get("RGPU", lambda wildcards: generate_read_group(wildcards)["PU"]),
+        RGSM=config.get("picard_add_read_group", {}).get("RGSM", lambda wildcards: generate_read_group(wildcards)["SM"]),
+    log:
+        "fusions/star_fusion/{sample}_{type}/Aligned.out.rg.bam.log",
+    benchmark:
+        repeat(
+            "fusions/star_fusion/{sample}_{type}/Aligned.out.rg.bam.benchmark.tsv",
+            config.get("picard_add_read_group", {}).get("benchmark_repeats", 1),
+        )
+    threads: config.get("picard_add_read_group", {}).get("threads", config["default_resources"]["threads"])
+    resources:
+        mem_mb=config.get("picard_add_read_group", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("picard_add_read_group", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("picard_add_read_group", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("picard_add_read_group", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("picard_add_read_group", {}).get("time", config["default_resources"]["time"]),
+    container:
+        config.get("picard_add_read_group", {}).get("container", config["default_container"])
+    conda:
+        "../envs/picard.yaml"
+    message:
+        "{rule}: fix readgroup in output from star-fusion and put results in {output.bam}"
+    shell:
+        "(java -jar picard.jar AddOrReplaceReadGroups "
+        "I={input.bam} "
+        "O={output.bam} "
+        "RGID={params.RGID} "
+        "RGLB={params.RGLB} "
+        "RGPL={params.RGPL} "
+        "RGPU={params.RGPU} "
+        "RGSM={params.RGSM}) &> {log}"

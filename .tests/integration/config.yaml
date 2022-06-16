@@ -21,10 +21,13 @@ gene_fuse:
   genes: "reference/gene_fuse_HES4.hg19.csv"
   fasta: "reference/HES45.fna"
 
-star_fusion:
-  container: "docker://hydragenetics/star-fusion:1.10.1"
-  genome_path: "reference/"
-
 fusioncatcher:
   container: "docker://blcdsdockerregistry/fusioncatcher:1.33"
+  genome_path: "reference/"
+
+picard_add_read_group:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+star_fusion:
+  container: "docker://hydragenetics/star-fusion:1.10.1"
   genome_path: "reference/"

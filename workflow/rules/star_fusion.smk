@@ -15,15 +15,15 @@ rule star_fusion:
         fusions_abridged=temp("fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.abridged.tsv"),
         sj=temp("fusions/star_fusion/{sample}_{type}/SJ.out.tab"),
         # Extra output files that should be removed
-        coj=temp("fusions/star_fusion/{sample}_{type}/Chimeric.out.junction")
-        log1=temp("fusions/star_fusion/{sample}_{type}/Log.final.out")
-        log2=temp("fusions/star_fusion/{sample}_{type}/Log.out")
-        log3=temp("fusions/star_fusion/{sample}_{type}/Log.progress.out")   
-        rpg=temp("fusions/star_fusion/{sample}_{type}/ReadsPerGene.out.tab")
-        sc=temp(directory("fusions/star_fusion/{sample}_{type}/_starF_checkpoints"))
-        sfp=temp(directory("fusions/star_fusion/{sample}_{type}/star-fusion.preliminary"))
-        sg=temp(directory("fusions/star_fusion/{sample}_{type}/_STARgenome"))
-        sp=temp(directory("fusions/star_fusion/{sample}_{type}/_STARpass1"))
+        coj=temp("fusions/star_fusion/{sample}_{type}/Chimeric.out.junction"),
+        log1=temp("fusions/star_fusion/{sample}_{type}/Log.final.out"),
+        log2=temp("fusions/star_fusion/{sample}_{type}/Log.out"),
+        log3=temp("fusions/star_fusion/{sample}_{type}/Log.progress.out"),
+        rpg=temp("fusions/star_fusion/{sample}_{type}/ReadsPerGene.out.tab"),
+        sc=temp(directory("fusions/star_fusion/{sample}_{type}/_starF_checkpoints")),
+        sfp=temp(directory("fusions/star_fusion/{sample}_{type}/star-fusion.preliminary")),
+        sg=temp(directory("fusions/star_fusion/{sample}_{type}/_STARgenome")),
+        sp=temp(directory("fusions/star_fusion/{sample}_{type}/_STARpass1")),
     params:
         extra=config.get("star_fusion", {}).get("extra", "--examine_coding_effect"),
         output_dir=temp(directory("fusions/star_fusion/{sample}_{type}/")),

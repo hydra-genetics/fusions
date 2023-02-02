@@ -49,6 +49,7 @@ rule arriba:
 rule arriba_draw_fusion:
     input:
         bam="alignment/star/{sample}_{type}.bam",
+        bai="alignment/star/{sample}_{type}.bam.bai",
         cytobands=config.get("arriba_draw_fusion", {}).get("cytobands", ""),
         fusions="fusions/arriba/{sample}_{type}.fusions.tsv",
         gtf=config.get("arriba_draw_fusion", {}).get("gtf", ""),

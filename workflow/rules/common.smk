@@ -43,16 +43,29 @@ wildcard_constraints:
 
 
 def compile_output_list(wildcards):
+
     files = {
         "fusions/gene_fuse_report": ["_gene_fuse_fusions_report.txt"],
     }
     output_files = [
-        "%s/%s_N%s" % (prefix, sample, suffix)
+        "%s/%s_T%s" % (prefix, sample, suffix)
         for prefix in files.keys()
         for sample in get_samples(samples)
-        if "N" in get_unit_types(units, sample)
+        if "T" in get_unit_types(units, sample)
         for suffix in files[prefix]
     ]
+    files = {
+        "fusions/filter_fuseq_wes": [".fuseq_wes.report.csv"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_T%s" % (prefix, sample, suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "T" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
     files = {
         "fusions/arriba_draw_fusion": [".pdf"],
     }

@@ -6,6 +6,7 @@ __license__ = "GPL-3"
 
 include: "rules/common.smk"
 include: "rules/arriba.smk"
+include: "rules/fuseq_wes.smk"
 include: "rules/fusioncatcher.smk"
 include: "rules/gene_fuse.smk"
 include: "rules/gene_fuse_report.smk"

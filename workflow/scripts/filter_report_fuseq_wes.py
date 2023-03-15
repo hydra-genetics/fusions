@@ -1,22 +1,23 @@
 
 import logging
+import re
 
 log = logging.getLogger()
 
 
 def get_breakpoints(breakpoint_file, sample):
     fusion_breakpoint_dict = {}
-    next(breakpoint_file)
+    header_list = next(breakpoint_file).rstrip().split("\t")
     for fusion in breakpoint_file:
-        columns = fusion.strip().split("\t")
-        fusion_name = columns[18]
-        chrom1 = columns[3].split("__")[1]
-        break_point1_1 = int(columns[3].split("__")[2]) + int(columns[5])
-        break_point1_2 = break_point1_1 + int(columns[7])
+        columns = {k: v for k, v in zip(header_list, fusion.strip().split("\t"))}
+        fusion_name = columns['name12']
+        chrom1 = columns['front_tx'].split("__")[1]
+        break_point1_1 = int(columns['front_tx'].split("__")[2]) + int(columns['front_hitpos'])
+        break_point1_2 = break_point1_1 + int(columns['front_len'])
         break_point1 = f"{chrom1}:{break_point1_1}-{break_point1_2}"
-        chrom2 = columns[8].split("__")[1]
-        break_point2_1 = int(columns[8].split("__")[2]) + int(columns[10])
-        break_point2_2 = break_point2_1 + int(columns[12])
+        chrom2 = columns['back_tx'].split("__")[1]
+        break_point2_1 = int(columns['back_tx'].split("__")[2]) + int(columns['back_hitpos'])
+        break_point2_2 = break_point2_1 + int(columns['back_len'])
         break_point2 = f"{chrom2}:{break_point2_1}-{break_point2_2}"
         fusion_breakpoint_dict[fusion_name] = [break_point1, break_point2]
     return fusion_breakpoint_dict
@@ -29,25 +30,31 @@ def get_report_genes(gene_white_list):
     return report_genes
 
 
+def get_transcript_black_list(transcript_black_list_file):
+    transcript_black_list = []
+    for transcript in transcript_black_list_file:
+        transcript_black_list.append(transcript.strip())
+    return transcript_black_list
+
+
 def filter_fusion(sample, fusion_breakpoint_dict, report_genes, fusion_file, min_support, filter_on_fusiondb):
     nr_report_genes = len(report_genes)
     filtered_fusions = []
-    next(fusion_file)
+    header_list = next(fusion_file).rstrip().split("\t")
     for fusion in fusion_file:
-        columns = fusion.strip().split("\t")
-        fusion_name = columns[0]
-        gene1 = fusion_name.split("--")[0]
-        gene2 = fusion_name.split("--")[1]
+        columns = {k: v for k, v in zip(header_list, fusion.strip().split("\t"))}
+        fusion_name = columns['fusionName']
+        gene1, gene2 = fusion_name.split("--")
         reverse_fusion_name = f"{gene2}--{gene1}"
         if nr_report_genes > 0 and not (gene1 in report_genes or gene2 in report_genes):
             continue
-        support = int(columns[8])
+        support = int(columns['supportCount'])
         if support < min_support:
             continue
-        SR_support = int(columns[9])
-        MR_support = int(columns[10])
-        fusiondb = int(columns[11])
-        paralog = columns[12]
+        SR_support = int(columns['SR'])
+        MR_support = int(columns['MR'])
+        fusiondb = int(columns['fusionDB'])
+        paralog = columns['isParalog']
         if fusiondb == 1 or filter_on_fusiondb is False:
             break_points = ["", ""]
             break_point1 = ""
@@ -59,70 +66,134 @@ def filter_fusion(sample, fusion_breakpoint_dict, report_genes, fusion_file, min
                     break_points = fusion_breakpoint_dict[reverse_fusion_name]
                 break_point1 = break_points[0]
                 break_point2 = break_points[1]
-            filtered_fusions.append([fusion_name, break_point1, "", break_point2, "", paralog, SR_support, MR_support, support])
+            filtered_fusions.append(
+                {
+                    "fusion_name": fusion_name,
+                    "break_point1": break_point1,
+                    "exon1": "",
+                    "break_point2": break_point2,
+                    "exon2": "",
+                    "paralog": paralog,
+                    "SR_support": SR_support,
+                    "MR_support": MR_support,
+                    "support": support,
+                }
+            )
     return filtered_fusions
 
 
-def annotate_fusion(filtered_fusions, input_gtf):
+def get_annotation(annotation):
+    annotation_dict = {}
+    annotations = annotation.split(";")
+    for a in annotations[:-1]:
+        a = a.strip()
+        key, value = a.split(" ")
+        value = value.strip('"')
+        annotation_dict[key] = value
+    return annotation_dict
+
+
+def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
     gene_dict = {}
     chr_pos_dict = {}
     transcript_exon_max = {}
     i = 0
+    large_bp_distance = 100000
     for fusion in filtered_fusions:
-        if not (fusion[1] == "" or fusion[3] == ""):
-            gene1 = fusion[0].split("--")[0]
-            gene2 = fusion[0].split("--")[1]
+        if not (fusion["break_point1"] == "" or fusion["break_point2"] == ""):
+            gene1, gene2 = fusion["fusion_name"].split("--")
             gene_dict[gene1] = ""
             gene_dict[gene2] = ""
-            bp1_chrom = fusion[1].split(":")[0]
-            bp1_pos = (int(fusion[1].split(":")[1].split("-")[0]) + int(fusion[1].split(":")[1].split("-")[1])) / 2
-            bp2_chrom = fusion[3].split(":")[0]
-            bp2_pos = (int(fusion[3].split(":")[1].split("-")[0]) + int(fusion[3].split(":")[1].split("-")[1])) / 2
+            bp1_chrom, pos1, pos2 = re.split(":|-", fusion['break_point1'])
+            # Middle point of region for distance calculation between two points rather than regions
+            bp1_pos = (int(pos1) + int(pos2)) / 2
+            bp2_chrom, pos1, pos2 = re.split(":|-", fusion['break_point2'])
+            # Middle point of region for distance calculation between two points rather than regions
+            bp2_pos = (int(pos1) + int(pos2)) / 2
             if bp1_chrom in chr_pos_dict:
-                chr_pos_dict[bp1_chrom].append([bp1_pos, i, 2, 100000, 0, "", ""])
+                chr_pos_dict[bp1_chrom].append(
+                    {
+                        "bp_pos": bp1_pos,
+                        "fusion_index": i,
+                        "exon_1_2": "exon1",
+                        "distance": large_bp_distance,
+                        "exon_number": 0,
+                        "transcript_id": "",
+                        "strand": "",
+                    }
+                )
             else:
-                chr_pos_dict[bp1_chrom] = [[bp1_pos, i, 2, 100000, 0, "", ""]]
+                chr_pos_dict[bp1_chrom] = [
+                    {
+                        "bp_pos": bp1_pos,
+                        "fusion_index": i,
+                        "exon_1_2": "exon1",
+                        "distance": large_bp_distance,
+                        "exon_number": 0,
+                        "transcript_id": "",
+                        "strand": "",
+                    }
+                ]
             if bp2_chrom in chr_pos_dict:
-                chr_pos_dict[bp2_chrom].append([bp2_pos, i, 4, 100000, 0, "", ""])
+                chr_pos_dict[bp2_chrom].append(
+                    {
+                        "bp_pos": bp2_pos,
+                        "fusion_index": i,
+                        "exon_1_2": "exon2",
+                        "distance": large_bp_distance,
+                        "exon_number": 0,
+                        "transcript_id": "",
+                        "strand": "",
+                    }
+                )
             else:
-                chr_pos_dict[bp2_chrom] = [[bp2_pos, i, 4, 100000, 0, "", ""]]
+                chr_pos_dict[bp2_chrom] = [
+                    {
+                        "bp_pos": bp2_pos,
+                        "fusion_index": i,
+                        "exon_1_2": "exon2",
+                        "distance": large_bp_distance,
+                        "exon_number": 0,
+                        "transcript_id": "",
+                        "strand": "",
+                    }
+                ]
         i += 1
     for gtf in input_gtf:
-        columns = gtf.strip().split("\t")
-        type = columns[2]
+        chrom, source, type, start, end, score, strand, frame, annotation = gtf.strip().split("\t")
         if type != "CDS":
             continue
-        gene_name = columns[8].split("gene_id \"")[1].split("\";")[0]
+        annotation_dict = get_annotation(annotation)
+        gene_name = annotation_dict.get("gene_id", "")
         if gene_name in gene_dict:
-            chrom = columns[0]
-            pos = (int(columns[3]) + int(columns[4])) / 2
+            # Middle point of region for distance calculation between two points rather than regions
+            pos = (int(start) + int(end)) / 2
             if chrom in chr_pos_dict:
-                for bp in chr_pos_dict[chrom]:
-                    direction = columns[6]
-                    if direction == "-":
-                        distance = bp[0] - pos
+                for breakpoint in chr_pos_dict[chrom]:
+                    if strand == "-":
+                        distance = breakpoint["bp_pos"] - pos
                     else:
-                        distance = pos - bp[0]
+                        distance = pos - breakpoint["bp_pos"]
                     if distance < 0:
-                        distance = 100000
-                    transcript_id = columns[8].split("transcript_id \"")[1].split("\";")[0]
-                    if transcript_id == "NM_001353765":
+                        distance = large_bp_distance
+                    transcript_id = annotation_dict.get("transcript_id", "")
+                    if transcript_id in transcript_black_list:
                         continue
-                    exon_number = int(columns[8].split("exon_number \"")[1].split("\";")[0])
-                    if distance < bp[3]:
-                        bp[3] = distance
-                        bp[4] = exon_number
-                        bp[5] = transcript_id
-                        bp[6] = direction
+                    exon_number = int(annotation_dict.get("exon_number", ""))
+                    if distance < breakpoint["distance"]:
+                        breakpoint["distance"] = distance
+                        breakpoint["exon_number"] = exon_number
+                        breakpoint["transcript_id"] = transcript_id
+                        breakpoint["strand"] = strand
                     transcript_exon_max[transcript_id] = exon_number
     for chrom in chr_pos_dict:
-        for bp in chr_pos_dict[chrom]:
-            transcript_id = bp[5]
-            if bp[6] == "-":
-                exon_number = transcript_exon_max[transcript_id] - bp[4] + 1
+        for breakpoint in chr_pos_dict[chrom]:
+            transcript_id = breakpoint["transcript_id"]
+            if breakpoint["strand"] == "-":
+                exon_number = transcript_exon_max[transcript_id] - breakpoint["exon_number"] + 1
             else:
-                exon_number = bp[4]
-            filtered_fusions[bp[1]][bp[2]] = f"exon {exon_number} in {transcript_id}"
+                exon_number = breakpoint["exon_number"]
+            filtered_fusions[breakpoint["fusion_index"]][breakpoint["exon_1_2"]] = f"exon {exon_number} in {transcript_id}"
     return filtered_fusions
 
 
@@ -145,7 +216,14 @@ if __name__ == "__main__":
 
     sample = snakemake.input.breakpoint.split("/")[-2].split(".")[0]
     fusion_breakpoint_dict = get_breakpoints(open(snakemake.input.breakpoint), sample)
-    report_genes = get_report_genes(open(snakemake.params.gene_white_list))
+    if snakemake.params.gene_white_list != "":
+        report_genes = get_report_genes(open(snakemake.params.gene_white_list))
+    else:
+        report_genes = []
+    if snakemake.params.transcript_black_list != "":
+        transcript_black_list = get_transcript_black_list(open(snakemake.params.transcript_black_list))
+    else:
+        transcript_black_list = []
     filtered_fusions = filter_fusion(
         sample,
         fusion_breakpoint_dict,
@@ -154,5 +232,5 @@ if __name__ == "__main__":
         snakemake.params.min_support,
         snakemake.params.filter_on_fusiondb,
     )
-    annotated_filtered_fusions = annotate_fusion(filtered_fusions, open(snakemake.params.gtf))
+    annotated_filtered_fusions = annotate_fusion(filtered_fusions, open(snakemake.params.gtf), transcript_black_list)
     write_fusions(annotated_filtered_fusions, open(snakemake.output.fusions, "w"))

@@ -22,6 +22,11 @@ To run this workflow, the following tools need to be available:
 [![snakemake](https://img.shields.io/badge/snakemake-6.8.0-blue)](https://snakemake.readthedocs.io/en/stable/)
 [![singularity](https://img.shields.io/badge/singularity-3.7-blue)](https://sylabs.io/docs/)
 
+---
+## OBSERVE
+All softwares included in the fusion module only supports singularity and not conda!
+---
+
 ## :school_satchel: Preparations
 
 ### Sample data

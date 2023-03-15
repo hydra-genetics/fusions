@@ -17,27 +17,23 @@ class TestUnitUtils(unittest.TestCase):
     def _test_annotate_fusion(self, test_results, fusions):
         j = 0
         for fusion in fusions:
-            i = 0
             for f in fusion:
                 try:
-                    self.assertEqual(test_results[j][i], fusion[i])
+                    self.assertEqual(test_results[j][f], fusion[f])
                 except AssertionError as e:
                     print("Failed annotation fusions of: " + str(fusion))
                     raise e
-                i += 1
             j += 1
 
     def _test_filter_fusion(self, test_results, fusions):
         j = 0
         for fusion in fusions:
-            i = 0
             for f in fusion:
                 try:
-                    self.assertEqual(test_results[j][i], fusion[i])
+                    self.assertEqual(test_results[j][f], fusion[f])
                 except AssertionError as e:
                     print("Failed filtering fusions of: " + str(fusion))
                     raise e
-                i += 1
             j += 1
 
     def _test_get_breakpoints(self, test_results, fusion_breakpoint_dict):
@@ -58,6 +54,7 @@ class TestUnitUtils(unittest.TestCase):
         sample = "Sample1"
         fusion_breakpoint_dict = get_breakpoints(open(breakpoint), sample)
         report_genes = ["ALK"]
+        transcript_black_list = ["NM_001353765"]
         fusions = ".tests/units/fuseq_wes/Sample1/FuSeq_WES_FusionFinal.txt"
         gtf = ".tests/units/fuseq_wes/hg19.refGene.small.gtf"
 
@@ -73,12 +70,55 @@ class TestUnitUtils(unittest.TestCase):
             self.filter_on_fusiondb
         )
 
-        test_results = [["ALK--EML4", "chr2:29446159-29446272", "", "chr2:42546328-42546359", "", "FALSE", 98, 23, 121],
-                        ["ALK--EML4", "", "", "", "", "FALSE", 0, 98, 98]]
+        test_results = [
+            {
+                'fusion_name': 'ALK--EML4',
+                'break_point1': 'chr2:29446159-29446272',
+                'exon1': '',
+                'break_point2': 'chr2:42546328-42546359',
+                'exon2': '',
+                'paralog': 'FALSE',
+                'SR_support': 98,
+                'MR_support': 23,
+                'support': 121,
+            },
+            {
+                'fusion_name': 'ALK--EML4',
+                'break_point1': '',
+                'exon1': '',
+                'break_point2': '',
+                'exon2': '',
+                'paralog': 'FALSE',
+                'SR_support': 0,
+                'MR_support': 98,
+                'support': 98
+            }
+        ]
         self._test_filter_fusion(test_results, filtered_fusions)
 
-        annotated_filtered_fusions = annotate_fusion(filtered_fusions, open(gtf))
-        test_results = [["ALK--EML4", "chr2:29446159-29446272", "exon 21 in NM_004304", "chr2:42546328-42546359",
-                         "exon 19 in NM_001145076", "FALSE", 98, 23, 121],
-                        ["ALK--EML4", "", "", "", "", "FALSE", 0, 98, 98]]
+        annotated_filtered_fusions = annotate_fusion(filtered_fusions, open(gtf), transcript_black_list)
+        test_results = [
+            {
+                'fusion_name': 'ALK--EML4',
+                'break_point1': 'chr2:29446159-29446272',
+                'exon1': 'exon 21 in NM_004304',
+                'break_point2': 'chr2:42546328-42546359',
+                'exon2': 'exon 19 in NM_001145076',
+                'paralog': 'FALSE',
+                'SR_support': 98,
+                'MR_support': 23,
+                'support': 121
+            },
+            {
+                'fusion_name': 'ALK--EML4',
+                'break_point1': '',
+                'exon1': '',
+                'break_point2': '',
+                'exon2': '',
+                'paralog': 'FALSE',
+                'SR_support': 0,
+                'MR_support': 98,
+                'support': 98
+            }
+        ]
         self._test_annotate_fusion(test_results, annotated_filtered_fusions)

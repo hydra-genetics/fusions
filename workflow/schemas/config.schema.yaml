@@ -78,6 +78,9 @@ properties:
       gene_white_list:
         type: string
         description: Genes which must be included in the fusion to be reported. Leave blank to report everything.
+      transcript_black_list:
+        type: string
+        description: Transcripts in the gtf file which should be skipped. Leave blank to skip.
       filter_on_fusiondb:
         type: boolean
         description: If True, only include fusions that are present in the Mitelman fusion database.

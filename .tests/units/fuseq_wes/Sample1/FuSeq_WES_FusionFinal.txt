@@ -1,0 +1,5 @@
+fusionName	gene1	gene2	name21	chrom1	strand1	chrom2	strand2	supportCount	SR	MR	fusionDB	isParalog
+ALK--EML4	ALK	EML4	EML4--ALK	chr2	-	chr2	+	121	98	23	1	FALSE
+ALK--EML4	ALK	EML4	EML4--ALK	chr2	-	chr2	+	21	20	1	1	FALSE
+ALK2--EML45	ALK2	EML45	EML45--ALK2	chr2	-	chr2	+	121	98	23	1	FALSE
+ALK--EML4	ALK	EML4	EML4--ALK	chr2	-	chr2	+	98	0	98	1	FALSE

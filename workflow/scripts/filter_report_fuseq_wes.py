@@ -98,6 +98,7 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
     chr_pos_dict = {}
     transcript_exon_max = {}
     i = 0
+    # Do not annotate with exon number if breakpoint and exon distance is to large
     large_bp_distance = 100000
     for fusion in filtered_fusions:
         if not (fusion["break_point1"] == "" or fusion["break_point2"] == ""):

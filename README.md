@@ -24,7 +24,7 @@ To run this workflow, the following tools need to be available:
 
 ---
 ## OBSERVE
-All softwares included in the fusion module only supports singularity and not conda!
+FusionCatcher and Fuseq_wes are not available in conda! Use singularity or install the softwares on your system.
 ---
 
 ## :school_satchel: Preparations

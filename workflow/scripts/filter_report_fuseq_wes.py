@@ -198,7 +198,8 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
 
 
 def write_fusions(annotated_filtered_fusions, out_file):
-    out_file.write("fusion\tbreak_point1\texon1\tbreak_point2\texon2\tparalog\tsplit_read_support\tmate_pair_support\ttotal_support\n")
+    out_file.write("fusion\tbreak_point1\texon1\tbreak_point2\texon2\tparalog\t")
+    out_file.write("split_read_support\tmate_pair_support\ttotal_support\n")
     for data in annotated_filtered_fusions:
         first = True
         for d in data:

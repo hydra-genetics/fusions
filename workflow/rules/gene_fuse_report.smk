@@ -27,8 +27,6 @@ rule gene_fuse_report:
         partition=config.get("gene_fuse_report", {}).get("partition", config["default_resources"]["partition"]),
     container:
         config.get("gene_fuse_report", {}).get("container", config["default_container"])
-    conda:
-        "../envs/gene_fuse_report.yaml"
     message:
         "{rule}: Report true DNA-fusion found by geneFuse in fusions/{rule}/{wildcards.sample}_{wildcards.type}"
     shell:

@@ -38,8 +38,6 @@ rule fuseq_wes:
         time=config.get("fuseq_wes", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("fuseq_wes", {}).get("container", config["default_container"])
-    conda:
-        "../envs/fuseq_wes.yaml"
     message:
         "{rule}: call dna fusion into {output.final_fusions} using bam file {input.bam}"
     shell:
@@ -86,8 +84,6 @@ rule filter_report_fuseq_wes:
         time=config.get("filter_fuseq_wes", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("filter_fuseq_wes", {}).get("container", config["default_container"])
-    conda:
-        "../envs/fuseq_wes.yaml"
     message:
         "{rule}: filter dna fuseq_wes fusions into {output.fusions}"
     script:

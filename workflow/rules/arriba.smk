@@ -32,8 +32,6 @@ rule arriba:
         time=config.get("arriba", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("arriba", {}).get("container", config["default_container"])
-    conda:
-        "../envs/arriba.yaml"
     message:
         "{rule}: find rna fusions in {input.bam}"
     shell:
@@ -72,8 +70,6 @@ rule arriba_draw_fusion:
         time=config.get("arriba_draw_fusion", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("arriba_draw_fusion", {}).get("container", config["default_container"])
-    conda:
-        "../envs/arriba.yaml"
     message:
         "{rule}: draw rna fusions into {output.pdf}"
     shell:

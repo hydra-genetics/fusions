@@ -32,8 +32,6 @@ rule fusioncatcher:
         time=config.get("fusioncatcher", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("fusioncatcher", {}).get("container", config["default_container"])
-    conda:
-        "../envs/fusioncatcher.yaml"
     message:
         "{rule}: find RNA-fusion using fusioncatcher and put results in {output.fusions}"
     shell:

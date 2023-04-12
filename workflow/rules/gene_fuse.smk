@@ -31,8 +31,6 @@ rule gene_fuse:
         partition=config.get("gene_fuse", {}).get("partition", config["default_resources"]["partition"]),
     container:
         config.get("gene_fuse", {}).get("container", config["default_container"])
-    conda:
-        "../envs/gene_fuse.yaml"
     message:
         "{rule}: Find DNA-fusion using geneFuse in fusions/{rule}/{wildcards.sample}_{wildcards.type}"
     shell:

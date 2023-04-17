@@ -1,0 +1,89 @@
+def isPullRequest = false
+
+pipeline {
+  agent { label 'marvin-clone' }
+  stages {
+    stage('First stage') {
+      steps {
+        script {
+          isPullRequest = env.CHANGE_ID != null
+        }
+        sh 'printenv'
+      }
+    }
+    stage('Develop') {
+      
+      steps {
+        sshagent(['jenkins']) {
+          sh '''#!/bin/bash
+               virtualenv venv -p python3.8
+               source venv/bin/activate
+               pip install -r requirements.txt
+               
+               if [ ! -d "prealignment" ] 
+               then
+                  mkdir -p prealignment 
+                  ln -s /data/ref_data/wp1/GMS560_Samples/RNA/prealignment/merged prealignment/merged
+               fi
+
+               if [ ! -d "alignment" ] 
+               then
+                  mkdir alignment
+                  ln -s /data/ref_data/wp1/GMS560_Samples/RNA/alignment/star alignment/star
+                  ln -s /data/ref_data/wp1/GMS560_Samples/RNA/alignment/samtools_merge_bam alignment/samtools_merge_bam
+               fi
+               cp .tests/jenkins/units.tsv units.tsv
+               cp .tests/jenkins/samples.tsv samples.tsv
+               
+               module load singularity
+               module load slurm-drmaa
+               snakemake -s workflow/Snakefile --show-failed-logs --use-singularity --profile .tests/jenkins/profile --notemp --configfile config/config.yaml
+             '''
+        }
+      }
+    }
+    stage('Master') {
+    when {
+      anyOf {
+        expression { isPullRequest == false  && env.BRANCH_NAME == 'master'}
+        }
+      }
+      steps {
+        sshagent(['jenkins']) {
+          sh '''#!/bin/bash
+               virtualenv venv -p python3.8
+               source venv/bin/activate
+               pip install -r requirements.txt
+               ln -s /data/test_data/gms560/prealignment prealignment
+               cp .tests/jenkins/units.tsv units.tsv
+               cp .tests/jenkins/samples.master.tsv samples.tsv
+               cp .tests/jenkins/resources.yaml resources.yaml
+               cp .tests/jenkins/test_input.master.tsv test_input.tsv
+               module load singularity
+               module load slurm-drmaa
+               snakemake -s workflow/Snakefile --show-failed-logs --use-singularity --profile .tests/jenkins/profiles/slurm --notemp --configfile .tests/jenkins/config.yaml
+
+               git clone https://github.com/clinical-genomics-uppsala/validation_workflow.git
+               module load nextflow
+               nextflow run validation_workflow/validate_result.nf
+             '''
+        }
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs(cleanWhenSuccess: true, cleanWhenFailure: false)
+
+      dir("${env.WORKSPACE}@tmp") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script@tmp") {
+        deleteDir()
+      }
+    }
+  }
+}

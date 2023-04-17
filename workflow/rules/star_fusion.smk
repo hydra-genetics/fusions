@@ -43,8 +43,6 @@ rule star_fusion:
         time=config.get("star_fusion", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("star_fusion", {}).get("container", config["default_container"])
-    conda:
-        "../envs/star_fusion.yaml"
     message:
         "{rule}: find RNA-fusion using star-fusion and put results in {output.fusions}"
     shell:

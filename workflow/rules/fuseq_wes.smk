@@ -46,7 +46,7 @@ rule fuseq_wes:
         "--bam {input.bam} "
         "--gtf {input.ref_json} "
         "--mapq-filter "
-        "--outdir ${{OUTPUT_FOLDER}} && "
+        "--outdir ${dirname output.final_fusions} && "
         "process_fuseq_wes.R "
         "in={output.output_dir} "
         "sqlite={input.gtfSqlite} "

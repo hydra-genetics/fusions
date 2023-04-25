@@ -41,7 +41,6 @@ rule fuseq_wes:
         "{rule}: call dna fusion into {output.final_fusions} using bam file {input.bam}"
     shell:
         'sh -c "'
-        OUTPUT_FOLDER=`dirname {output.final_fusions}`
         "fuseq_wes.py "
         "--bam {input.bam} "
         "--gtf {input.ref_json} "

@@ -52,7 +52,7 @@ rule fuseq_wes:
         "fusiondb={input.fusiondb} "
         "paralogdb={input.paralogdb} "
         "params={input.params} "
-        'out={output.output_dir}" &> {log}'
+        'out=$(dirname {output.final_fusions})" &> {log}'
 
 
 rule filter_report_fuseq_wes:

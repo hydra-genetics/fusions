@@ -41,11 +41,12 @@ rule fuseq_wes:
         "{rule}: call dna fusion into {output.final_fusions} using bam file {input.bam}"
     shell:
         'sh -c "'
+        "OUTPUTDIR=`dirname {output.final_fusions}` &&"
         "fuseq_wes.py "
         "--bam {input.bam} "
         "--gtf {input.ref_json} "
         "--mapq-filter "
-        "--outdir ${dirname output.final_fusions} && "
+        "--outdir {OUTPUTDIR} && "
         "process_fuseq_wes.R "
         "in={output.output_dir} "
         "sqlite={input.gtfSqlite} "

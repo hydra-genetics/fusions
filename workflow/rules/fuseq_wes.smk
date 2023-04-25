@@ -47,7 +47,7 @@ rule fuseq_wes:
         "--mapq-filter "
         "--outdir $(dirname {output.final_fusions}) && "
         "process_fuseq_wes.R "
-        "in={output.output_dir} "
+        "in=$(dirname {output.final_fusions}) "
         "sqlite={input.gtfSqlite} "
         "fusiondb={input.fusiondb} "
         "paralogdb={input.paralogdb} "

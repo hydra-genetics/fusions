@@ -19,7 +19,6 @@ rule fuseq_wes:
         fusion_split_read_info=temp("fusions/fuseq_wes/{sample}_{type}/splitReadInfo.txt"),
         mate_pair1=temp("fusions/fuseq_wes/{sample}_{type}/FuSeq_WES_MR_fge.txt"),
         mate_pair2=temp("fusions/fuseq_wes/{sample}_{type}/FuSeq_WES_MR_fge_fdb.txt"),
-        output_dir=temp(directory("fusions/fuseq_wes/{sample}_{type}")),
         split_read1=temp("fusions/fuseq_wes/{sample}_{type}/FuSeq_WES_SR_fge.txt"),
         split_read2=temp("fusions/fuseq_wes/{sample}_{type}/FuSeq_WES_SR_fge_fdb.txt"),
     log:
@@ -46,14 +45,14 @@ rule fuseq_wes:
         "--bam {input.bam} "
         "--gtf {input.ref_json} "
         "--mapq-filter "
-        "--outdir {output.output_dir} && "
+        "--outdir $(dirname {output.final_fusions}) && "
         "process_fuseq_wes.R "
-        "in={output.output_dir} "
+        "in=$(dirname {output.final_fusions}) "
         "sqlite={input.gtfSqlite} "
         "fusiondb={input.fusiondb} "
         "paralogdb={input.paralogdb} "
         "params={input.params} "
-        'out={output.output_dir}" &> {log}'
+        'out=$(dirname {output.final_fusions})" &> {log}'
 
 
 rule filter_report_fuseq_wes:

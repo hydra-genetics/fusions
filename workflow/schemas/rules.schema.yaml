@@ -1,0 +1,148 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake rule input and output files description file
+type: object
+properties:
+  arriba:
+    type: object
+    description: input and output parameters for arriba
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: Bam file from a split-aware aligner like STAR
+          bai:
+            type: string
+            description: Bam index file
+          ass:
+            type: string
+            description: Fasta reference genome
+          gtf:
+            type: string
+            description: Transcript reference file
+          bl:
+            type: string
+            description: List with excluded regions
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: Text file with found fusions
+          fusions_dis:
+            type: string
+            description: Text file with discarded candidate fusions
+          
+  arriba_draw_fusion:
+    type: object
+    description: input and output parameters for arriba_draw_fusion
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: Bam file from a split-aware aligner like STAR
+          bai:
+            type: string
+            description: Bam index file
+          cytobands:
+            type: string
+            description: File with chromosomal positions of the cytobands in the reference chosen
+          fusions:
+            type: string
+            description: Fusion file produced by arriba
+          gtf:
+            type: string
+            description: Transcript reference file
+          protein_domains:
+            type: string
+            description: File with protein domain information in .gff3 file format
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          pdf:
+            type: string
+            description: A .pdf file with illustrations of each called fusion
+
+  filter_report_fuseq_wes:
+    type: object
+    description: input and output parameters for filter_report_fuseq_wes
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fusions:
+            type: string
+            description: Fusions called by fuseq_wes
+          breakpoint:
+            type: string
+            description: Breakpoint file produced by fuseq_wes
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: Text file with filtered fusions
+
+  fuseq_wes:
+    type: object
+    description: input and output parameters for arriba_draw_fusion
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: Bam file from a split-aware aligner like STAR
+          bai:
+            type: string
+            description: Bam index file
+          ref_json:
+            type: string
+            description: JSON file with transcript regions
+          gtfSqlite:
+            type: string
+            description: Sqlite database with transcript regions
+          fusiondb:
+            type: string
+            description: Known fusions from the [Mitelman fusion database](https://mitelmandatabase.isb-cgc.org/)
+          paralogdb:
+            type: string
+            description: Paralog database used for filtering
+          params:
+            type: string
+            description: Program configuration file
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          final_fusions:
+            type: string
+            description: Text file with called fusions (unfiltered)
+          fusion_reads:
+            type: string
+            description: Transcript annotation and count of all fusion reads
+          fusion_split_read_info:
+            type: string
+            description: Fusion split read information
+          mate_pair1:
+            type: string
+            description: Annotation and count of all mate pair reads
+          mate_pair2:
+            type: string
+            description: Annotation and count of all mate pair reads for fusions found in the fusion database
+          split_read1:
+            type: string
+            description: Annotation and count of all split reads
+          split_read2:
+            type: string
+            description: Annotation and count of all split reads for fusions found in the fusion database

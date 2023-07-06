@@ -39,7 +39,9 @@ properties:
         description: partition to use on the cluster
       threads:
         type: integer
-        description: number of threads that will be used
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
       time:
         type: string
         description: max execution time
@@ -64,7 +66,7 @@ properties:
         type: string
         description: max execution time
 
-  filter_fuseq_wes:
+  filter_report_fuseq_wes:
     type: object
     description: resource definitions for filtering fuseq_wes output and generate a report
     properties:
@@ -82,7 +84,7 @@ properties:
         description: max execution time
       threads:
         type: integer
-        description:  number of threads to be available
+        description: number of threads to be available
 
   fuseq_wes:
     type: object
@@ -90,7 +92,9 @@ properties:
     properties:
       mem_mb:
         type: integer
-        description: memory in MB used per cpu
+        description: |
+          memory in MB used per cpu
+          NOTE: Use additional memory
       mem_per_cpu:
         type: integer
         description: memory used per cpu
@@ -102,7 +106,9 @@ properties:
         description: max execution time
       threads:
         type: integer
-        description:  number of threads to be available
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads if memory is limited
 
   fusioncatcher:
     type: object
@@ -122,7 +128,9 @@ properties:
         description: number of threads that will be used
       time:
         type: string
-        description: max execution time
+        description: | 
+          number of threads that will be used
+          NOTE: Use many threads for faster execution time
 
   gene_fuse:
     type: object
@@ -139,7 +147,9 @@ properties:
         description: partition to use on the cluster
       threads:
         type: integer
-        description: number of threads that will be used
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
       time:
         type: string
         description: max execution time
@@ -179,7 +189,9 @@ properties:
         description: partition to use on the cluster
       threads:
         type: integer
-        description: number of threads that will be used
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
       time:
         type: string
         description: max execution time

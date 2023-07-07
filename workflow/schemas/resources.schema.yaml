@@ -130,7 +130,7 @@ properties:
         type: string
         description: | 
           number of threads that will be used
-          NOTE: Use many threads for faster execution time
+          NOTE: Use many threads for faster execution time. Has good scaling.
 
   gene_fuse:
     type: object
@@ -150,6 +150,7 @@ properties:
         description: | 
           number of threads that will be used
           NOTE: Use several threads for faster execution time
+          NOTE: Execution time scales with number of genes analyzed
       time:
         type: string
         description: max execution time

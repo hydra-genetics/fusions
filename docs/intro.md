@@ -8,7 +8,7 @@ The fusions module consists of programs used for finding fusions or translocatio
 | [FuSeq_WES](https://github.com/nghiavtr/FuSeq_WES) | DNA | Uses all transcripts |
 | [GeneFuse](https://github.com/OpenGene/GeneFuse) | _ _ | Uses only selected transcripts |
 | [Arriba](https://github.com/suhrig/arriba) | RNA | Uses external STAR aligner |
-| [STAR-Fusion](https://github.com/suhrig/arriba) | | Uses built in STAR aligner |
+| [STAR-Fusion](https://github.com/STAR-Fusion/STAR-Fusion) | | Uses built in STAR aligner |
 | [FusionCatcher](https://github.com/ndaniel/fusioncatcher) | _ _ | Uses several built in aligners |
 
 

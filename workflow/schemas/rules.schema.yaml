@@ -1,0 +1,295 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake rule input and output files description file
+type: object
+properties:
+  arriba:
+    type: object
+    description: input and output parameters for arriba
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: Bam file from a split-aware aligner like STAR
+          bai:
+            type: string
+            description: Bam index file
+          ass:
+            type: string
+            description: Fasta reference genome
+          gtf:
+            type: string
+            description: Transcript reference file
+          bl:
+            type: string
+            description: List with excluded regions
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: Text file with found fusions
+          fusions_dis:
+            type: string
+            description: Text file with discarded candidate fusions
+          
+  arriba_draw_fusion:
+    type: object
+    description: input and output parameters for arriba_draw_fusion
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: Bam file from a split-aware aligner like STAR
+          bai:
+            type: string
+            description: Bam index file
+          cytobands:
+            type: string
+            description: File with chromosomal positions of the cytobands in the reference chosen
+          fusions:
+            type: string
+            description: Fusion file produced by arriba
+          gtf:
+            type: string
+            description: Transcript reference file
+          protein_domains:
+            type: string
+            description: File with protein domain information in .gff3 file format
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          pdf:
+            type: string
+            description: A .pdf file with illustrations of each called fusion
+
+  filter_report_fuseq_wes:
+    type: object
+    description: input and output parameters for filter_report_fuseq_wes
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fusions:
+            type: string
+            description: Fusions called by fuseq_wes
+          breakpoint:
+            type: string
+            description: Breakpoint file produced by fuseq_wes
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: Text file with filtered fusions
+
+  fuseq_wes:
+    type: object
+    description: input and output parameters for arriba_draw_fusion
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: Bam file from a split-aware aligner like STAR
+          bai:
+            type: string
+            description: Bam index file
+          ref_json:
+            type: string
+            description: JSON file with transcript regions
+          gtfSqlite:
+            type: string
+            description: Sqlite database with transcript regions
+          fusiondb:
+            type: string
+            description: Known fusions from the [Mitelman fusion database](https://mitelmandatabase.isb-cgc.org/)
+          paralogdb:
+            type: string
+            description: Paralog database used for filtering
+          params:
+            type: string
+            description: Program configuration file
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          final_fusions:
+            type: string
+            description: Text file with called fusions (unfiltered)
+          fusion_reads:
+            type: string
+            description: Transcript annotation and count of all fusion reads
+          fusion_split_read_info:
+            type: string
+            description: Fusion split read information
+          mate_pair1:
+            type: string
+            description: Annotation and count of all mate pair reads
+          mate_pair2:
+            type: string
+            description: Annotation and count of all mate pair reads for fusions found in the fusion database
+          split_read1:
+            type: string
+            description: Annotation and count of all split reads
+          split_read2:
+            type: string
+            description: Annotation and count of all split reads for fusions found in the fusion database
+
+  fusioncatcher:
+    type: object
+    description: input and output parameters for fusioncatcher
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fq1:
+            type: string
+            description: Fastq file from read1
+          fq2:
+            type: string
+            description: Fastq file from read2
+          genome_path:
+            type: string
+            description: |
+              Path to directory with fusioncatcher specific genome reference files.
+              Files version must match with version of the program used.
+              Uses hg38 and lifts results to hg37.
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: |
+              Fusions called with additional information.
+              Needs filtering as there are usually many false positives
+          fusions_summary:
+            type: string
+            description: Summary information of the fusions called
+
+  gene_fuse:
+    type: object
+    description: input and output parameters for gene_fuse
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fastq1:
+            type: string
+            description: Fastq file from read1
+          fastq2:
+            type: string
+            description: Fastq file from read2
+          genes:
+            type: string
+            description: |
+              Genes that should be analysed. Precompiled sets of genes are provided. 
+          ref:
+            type: string
+            description: Fasta reference genome
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          html:
+            type: string
+            description: Html report of the fusions showing reads that support the fusions
+          fusions:
+            type: string
+            description: Unfiltered DNA fusions
+
+  gene_fuse_report:
+    type: object
+    description: input and output parameters for gene_fuse_report
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fusions:
+            type: string
+            description: Unfiltered fusions called by gene_fuse
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: Filtered fusions
+
+  star_fusion:
+    type: object
+    description: input and output parameters for star_fusion
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fq1:
+            type: string
+            description: Fastq file from read1
+          fq2:
+            type: string
+            description: Fastq file from read2
+          genome_path:
+            type: string
+            description: Fasta reference genome
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          bam:
+            type: string
+            description: Bam file aligned using STAR
+          fusions:
+            type: string
+            description: Called fusions with additional annotations
+          fusions_abridged:
+            type: string
+            description: Called fusions with minimal information
+          sj:
+            type: string
+            description: |
+              Junction file describing read splitting between exons.
+              Can be used to find clinically relevant exon skipping events within a gene that fusion callers does not pick up.
+          coj:
+            type: string
+            description: Junction file describing read splitting between two different genes (fusions)
+          log1:
+            type: string
+            description: STAR-Fusion log file
+          log2:
+            type: string
+            description: STAR-Fusion log file
+          log3:
+            type: string
+            description: STAR-Fusion log file
+          rpg:
+            type: string
+            description: Reads per gene which can be use to calculate expression
+          sc:
+            type: string
+            description: STAR-Fusion intermediate directory
+          sfp:
+            type: string
+            description: STAR-Fusion intermediate directory
+          sg:
+            type: string
+            description: Alignment intermediate directory
+          sp:
+            type: string
+            description: Alignment intermediate directory

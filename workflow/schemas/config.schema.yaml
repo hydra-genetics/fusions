@@ -145,18 +145,9 @@ properties:
       container:
         type: string
         description: name or path to docker/singularity container
-      fasta:
-        type: string
-        description: fasta reference file
-      genes:
-        type: string
-        description: path to gene files used by gene_fuse
       extra:
         type: string
         description: extra parameters to rule
-      required:
-        - genes
-        - fasta
 
   gene_fuse_report:
     type: object
@@ -185,11 +176,11 @@ properties:
       container:
         type: string
         description: name or path to docker/singularity container
-      genome_path:
-        type: string
-        description: star-fusion reference path
       extra:
         type: string
         description: extra parameters to rule
+      output_dir:
+        type: string
+        description: Output directory
     required:
       - genome_path

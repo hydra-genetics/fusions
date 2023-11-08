@@ -64,6 +64,7 @@ rule filter_report_fuseq_wes:
     params:
         min_support=config.get("filter_fuseq_wes", {}).get("min_support", ""),
         gene_white_list=config.get("filter_fuseq_wes", {}).get("gene_white_list", ""),
+        gene_fusion_black_list=config.get("filter_fuseq_wes", {}).get("gene_fusion_black_list", ""),
         transcript_black_list=config.get("filter_fuseq_wes", {}).get("transcript_black_list", ""),
         filter_on_fusiondb=config.get("filter_fuseq_wes", {}).get("filter_on_fusiondb", ""),
         gtf=config.get("filter_fuseq_wes", {}).get("gtf", ""),

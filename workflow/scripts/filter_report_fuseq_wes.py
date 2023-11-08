@@ -30,6 +30,13 @@ def get_report_genes(gene_white_list):
     return report_genes
 
 
+def get_false_fusions(gene_fusion_black_list):
+    false_fusions = []
+    for gene_fusion in gene_fusion_black_list:
+        false_fusions.append(gene_fusion.strip().split("\t"))
+    return false_fusions
+
+
 def get_transcript_black_list(transcript_black_list_file):
     transcript_black_list = []
     for transcript in transcript_black_list_file:
@@ -37,7 +44,7 @@ def get_transcript_black_list(transcript_black_list_file):
     return transcript_black_list
 
 
-def filter_fusion(sample, fusion_breakpoint_dict, report_genes, fusion_file, min_support, filter_on_fusiondb):
+def filter_fusion(sample, fusion_breakpoint_dict, report_genes, false_fusions, fusion_file, min_support, filter_on_fusiondb):
     nr_report_genes = len(report_genes)
     filtered_fusions = []
     header_list = next(fusion_file).rstrip().split("\t")
@@ -46,8 +53,13 @@ def filter_fusion(sample, fusion_breakpoint_dict, report_genes, fusion_file, min
         fusion_name = columns['fusionName']
         gene1, gene2 = fusion_name.split("--")
         reverse_fusion_name = f"{gene2}--{gene1}"
+        # Filter fusions without genes in the report gene file
         if nr_report_genes > 0 and not (gene1 in report_genes or gene2 in report_genes):
             continue
+        # Filter false positive gene fusions
+        if [gene1, gene2] in false_fusions:
+            continue
+        # Filter genes with low support
         support = int(columns['supportCount'])
         if support < min_support:
             continue
@@ -55,6 +67,7 @@ def filter_fusion(sample, fusion_breakpoint_dict, report_genes, fusion_file, min
         MR_support = int(columns['MR'])
         fusiondb = int(columns['fusionDB'])
         paralog = columns['isParalog']
+        # Filter genes not in fusion database (if set to True)
         if fusiondb == 1 or filter_on_fusiondb is False:
             break_points = ["", ""]
             break_point1 = ""
@@ -222,6 +235,10 @@ if __name__ == "__main__":
         report_genes = get_report_genes(open(snakemake.params.gene_white_list))
     else:
         report_genes = []
+    if snakemake.params.gene_fusion_black_list != "":
+        false_fusions = get_false_fusions(open(snakemake.params.gene_fusion_black_list))
+    else:
+        false_fusions = []
     if snakemake.params.transcript_black_list != "":
         transcript_black_list = get_transcript_black_list(open(snakemake.params.transcript_black_list))
     else:
@@ -230,6 +247,7 @@ if __name__ == "__main__":
         sample,
         fusion_breakpoint_dict,
         report_genes,
+        false_fusions,
         open(snakemake.input.fusions),
         snakemake.params.min_support,
         snakemake.params.filter_on_fusiondb,

@@ -9,7 +9,7 @@ Snakemake module containing fusion callers for both DNA and RNA.
 ![Lint](https://github.com/hydra-genetics/fusions/actions/workflows/lint.yaml/badge.svg?branch=develop)
 ![Snakefmt](https://github.com/hydra-genetics/fusions/actions/workflows/snakefmt.yaml/badge.svg?branch=develop)
 
-![pycodestyle](https://github.com/hydra-genetics/fusions/actions/workflows/pycodestyl.yaml/badge.svg?branch=develop)
+![pycodestyle](https://github.com/hydra-genetics/fusions/actions/workflows/pycodestyle.yaml/badge.svg?branch=develop)
 ![pytest](https://github.com/hydra-genetics/fusions/actions/workflows/pytest.yaml/badge.svg?branch=develop)
 
 
@@ -35,8 +35,6 @@ The small integration test is not run in this module as the programs need large 
 ---
 
 ## :school_satchel: Preparations
-
-### Sample data
 
 ### Sample and unit data
 

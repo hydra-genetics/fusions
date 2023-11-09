@@ -91,6 +91,14 @@ HPC clusters, it is recommended to use a cluster profile and run something like:
 snakemake -s /path/to/Snakefile --profile my-awesome-profile
 ```
 
+### Compatibility
+
+Latest:
+ - alignment:v0.5.1
+ - prealignment:v1.2.0
+
+ See [COMPATIBLITY.md](../master/COMPATIBLITY.md) file for a complete list of module compatibility.
+
 ### Input files
 
 | File | Description |

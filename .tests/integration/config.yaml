@@ -2,4 +2,44 @@ resources: "resources.yaml"
 samples: "samples.tsv"
 units: "units.tsv"
 
-default_container: "docker://marrip/common:1.1.0"
+default_container: "docker://hydragenetics/common:0.1.9"
+
+arriba:
+  assembly: "reference/WASH7P.fna"
+  blacklist: "reference/arriba_blacklist.tsv"
+  container: "docker://hydragenetics/arriba:2.3.0"
+  gtf: "reference/WASH7P.gtf"
+
+arriba_draw_fusion:
+  container: "docker://hydragenetics/arriba:2.3.0"
+  cytobands: "reference/cytobands_hg19_hs37d5_GRCh37_v2.3.0.tsv"
+  gtf: "reference/WASH7P.gtf"
+  protein_domains: "reference/protein_domains_hg19_hs37d5_GRCh37_v2.3.0.gff3"
+
+filter_fuseq_wes:
+  min_support: 30
+  gene_white_list: "reference/fuseq_wes_gene_white_list.txt"
+  transcript_black_list: "reference/fuseq_wes_transcript_black_list.txt"
+  filter_on_fusiondb: True
+  gtf: "reference/hg19.refGene.gtf"
+
+fuseq_wes:
+  container: "docker://hydragenetics/fuseq_wes:1.0.1"
+  ref_json: "reference/UCSC_hg19_wes_contigSize3000_bigLen130000_r100.json"
+  gtfSqlite: "reference/UCSC_hg19_wes_contigSize3000_bigLen130000_r100.sqlite"
+  fusiondb: "reference/Mitelman_fusiondb.RData"
+  paralogdb: "reference/ensmbl_paralogs_grch37.RData"
+  params: "reference/fuseq_params.txt"
+
+fusioncatcher:
+  container: "docker://hydragenetics/fusioncatcher:1.33"
+  genome_path: "reference/"
+
+gene_fuse:
+  container: "docker://hydragenetics/genefuse:0.6.1"
+  genes: "reference/gene_fuse_HES4.hg19.csv"
+  fasta: "reference/HES45.fna"
+
+star_fusion:
+  container: "docker://hydragenetics/star-fusion:1.10.1"
+  genome_path: "reference/"

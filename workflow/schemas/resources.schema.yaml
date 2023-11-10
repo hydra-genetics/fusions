@@ -4,13 +4,195 @@ type: object
 properties:
   default_resources:
     type: object
+    description: default resource definitions
     properties:
+      mem_mb:
+        type: integer
+        description: default memory used for a rule
+      mem_per_cpu:
+        type: integer
+        description: default memory used per cpu for a rule
+      partition:
+        type: string
+        description: default partition to use on the cluster for a rule
       threads:
         type: integer
         description: default number of threads that will be used by a rule
       time:
         type: string
         description: default max execution time for a rule
-
   required:
     - default_resources
+
+  arriba:
+    type: object
+    description: resource definitions for arriba
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
+      time:
+        type: string
+        description: max execution time
+
+  arriba_draw_fusion:
+    type: object
+    description: resource definitions for arriba
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: max execution time
+
+  filter_report_fuseq_wes:
+    type: object
+    description: resource definitions for filtering fuseq_wes output and generate a report
+    properties:
+      mem_mb:
+        type: integer
+        description: memory in MB used per cpu
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on cluster
+      time:
+        type: string
+        description: max execution time
+      threads:
+        type: integer
+        description: number of threads to be available
+
+  fuseq_wes:
+    type: object
+    description: resource definitions for running fuseq_wes
+    properties:
+      mem_mb:
+        type: integer
+        description: |
+          memory in MB used per cpu
+          NOTE: Use additional memory
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on cluster
+      time:
+        type: string
+        description: max execution time
+      threads:
+        type: integer
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads if memory is limited
+
+  fusioncatcher:
+    type: object
+    description: resource definitions for fusioncatcher
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: | 
+          number of threads that will be used
+          NOTE: Use many threads for faster execution time. Has good scaling.
+
+  gene_fuse:
+    type: object
+    description: resource definitions for gene_fuse
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
+          NOTE: Execution time scales with number of genes analyzed
+      time:
+        type: string
+        description: max execution time
+
+  gene_fuse_report:
+    type: object
+    description: resource definitions for gene_fuse_report
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: number of threads that will be used
+      time:
+        type: string
+        description: max execution time
+
+  star_fusion:
+    type: object
+    description: resource definitions for star_fusion
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
+      time:
+        type: string
+        description: max execution time

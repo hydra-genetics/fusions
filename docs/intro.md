@@ -1,0 +1,35 @@
+# Hydra-genetics fusions module
+The fusions module consists of programs used for finding fusions or translocations in both RNA and DNA short read data. Additional panel specific filtering and merging can be necessary. 
+
+## Fusion callers
+
+| Caller | Type | Comment |
+|-|-|-|
+| [FuSeq_WES](https://github.com/nghiavtr/FuSeq_WES) | DNA | Uses all transcripts |
+| [GeneFuse](https://github.com/OpenGene/GeneFuse) | _ _ | Uses only selected transcripts |
+| [Arriba](https://github.com/suhrig/arriba) | RNA | Uses external STAR aligner |
+| [STAR-Fusion](https://github.com/STAR-Fusion/STAR-Fusion) | | Uses built in STAR aligner |
+| [FusionCatcher](https://github.com/ndaniel/fusioncatcher) | _ _ | Uses several built in aligners |
+
+
+## Dag graph
+
+![Steps](images/fusions.png)
+
+
+## Module input files
+Depending on the fusion caller the input files are either bam-files or fastq-files.
+
+* `alignment/samtools_merge_bam/{sample}_{type}.bam`
+* `prealignment/merged/{sample}_{type}_fastq1.fastq.gz`
+* `prealignment/merged/{sample}_{type}_fastq2.fastq.gz`
+
+
+## Module output files
+The fusion results are reported in simple text format files.
+
+* `fusions/filter_fuseq_wes/{sample}_{type}.fuseq_wes.report.csv`
+* `fusions/gene_fuse_report/{sample}_{type}_gene_fuse_fusions_report.txt`
+* `fusions/arriba/{sample}_{type}.fusions.tsv`
+* `fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.abridged.tsv"`
+* `fusions/fusioncatcher/{sample}_{type}/final-list_candidate-fusion-genes.hg19.txt`

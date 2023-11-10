@@ -2,7 +2,7 @@
 <a href="https://hydra-genetics-fusions.readthedocs.io">https://hydra-genetics-fusions.readthedocs.io</a>
 </p>
 
-# <img src="https://github.com/hydra-genetics/fusions/blob/develop/images/hydragenetics.png" width=40 /> hydra-genetics/fusions
+# <img src="https://github.com/hydra-genetics/fusions/blob/develop/docs/images/hydragenetics.png" width=40 /> hydra-genetics/fusions
 
 Snakemake module containing fusion callers for both DNA and RNA.
 

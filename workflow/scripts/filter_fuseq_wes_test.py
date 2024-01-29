@@ -54,7 +54,7 @@ class TestUnitUtils(unittest.TestCase):
         sample = "Sample1"
         fusion_breakpoint_dict = get_breakpoints(open(breakpoint), sample)
         report_genes = ["ALK"]
-        false_fusions = ["MYB", "AHI1"]
+        false_fusions = [["MYB", "AHI1"]]
         transcript_black_list = ["NM_001353765"]
         fusions = ".tests/units/fuseq_wes/Sample1/FuSeq_WES_FusionFinal.txt"
         gtf = ".tests/units/fuseq_wes/hg19.refGene.small.gtf"

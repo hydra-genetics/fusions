@@ -3,7 +3,7 @@ nav:
   - Introduction: intro.md
   - Softwares: softwares.md
 
-theme: readthedocs
+theme:
    name: readthedocs
 extra_css: [extra.css]
 markdown_extensions:

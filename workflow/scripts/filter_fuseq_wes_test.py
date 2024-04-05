@@ -59,7 +59,7 @@ class TestUnitUtils(unittest.TestCase):
         fusions = ".tests/units/fuseq_wes/Sample1/FuSeq_WES_FusionFinal.txt"
         gtf = ".tests/units/fuseq_wes/hg19.refGene.small.gtf"
 
-        test_results = {"ALK--EML4": ["chr2:29446159-29446272", "chr2:42546328-42546359"]}
+        test_results = {"ALK--EML4": ["chr2:29446271", "chr2:42546329"]}
         self._test_get_breakpoints(test_results, fusion_breakpoint_dict)
 
         filtered_fusions = filter_fusion(
@@ -75,9 +75,9 @@ class TestUnitUtils(unittest.TestCase):
         test_results = [
             {
                 'fusion_name': 'ALK--EML4',
-                'break_point1': 'chr2:29446159-29446272',
+                'break_point1': 'chr2:29446271',
                 'exon1': '',
-                'break_point2': 'chr2:42546328-42546359',
+                'break_point2': 'chr2:42546329',
                 'exon2': '',
                 'paralog': 'FALSE',
                 'SR_support': 98,
@@ -102,9 +102,9 @@ class TestUnitUtils(unittest.TestCase):
         test_results = [
             {
                 'fusion_name': 'ALK--EML4',
-                'break_point1': 'chr2:29446159-29446272',
+                'break_point1': 'chr2:29446271',
                 'exon1': 'exon 21 in NM_004304',
-                'break_point2': 'chr2:42546328-42546359',
+                'break_point2': 'chr2:42546329',
                 'exon2': 'exon 19 in NM_001145076',
                 'paralog': 'FALSE',
                 'SR_support': 98,

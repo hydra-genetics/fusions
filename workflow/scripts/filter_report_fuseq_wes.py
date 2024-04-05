@@ -12,13 +12,11 @@ def get_breakpoints(breakpoint_file, sample):
         columns = {k: v for k, v in zip(header_list, fusion.strip().split("\t"))}
         fusion_name = columns['name12']
         chrom1 = columns['front_tx'].split("__")[1]
-        break_point1_1 = int(columns['front_tx'].split("__")[2]) + int(columns['front_hitpos'])
-        break_point1_2 = break_point1_1 + int(columns['front_len'])
-        break_point1 = f"{chrom1}:{break_point1_1}-{break_point1_2}"
+        break_point1_pos = int(columns['front_tx'].split("__")[2]) + int(columns['front_brpos'])
+        break_point1 = f"{chrom1}:{break_point1_pos}"
         chrom2 = columns['back_tx'].split("__")[1]
-        break_point2_1 = int(columns['back_tx'].split("__")[2]) + int(columns['back_hitpos'])
-        break_point2_2 = break_point2_1 + int(columns['back_len'])
-        break_point2 = f"{chrom2}:{break_point2_1}-{break_point2_2}"
+        break_point2_pos = int(columns['back_tx'].split("__")[2]) + int(columns['back_brpos'])
+        break_point2 = f"{chrom2}:{break_point2_pos}"
         fusion_breakpoint_dict[fusion_name] = [break_point1, break_point2]
     return fusion_breakpoint_dict
 
@@ -118,16 +116,12 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
             gene1, gene2 = fusion["fusion_name"].split("--")
             gene_dict[gene1] = ""
             gene_dict[gene2] = ""
-            bp1_chrom, pos1, pos2 = re.split(":|-", fusion['break_point1'])
-            # Middle point of region for distance calculation between two points rather than regions
-            bp1_pos = (int(pos1) + int(pos2)) / 2
-            bp2_chrom, pos1, pos2 = re.split(":|-", fusion['break_point2'])
-            # Middle point of region for distance calculation between two points rather than regions
-            bp2_pos = (int(pos1) + int(pos2)) / 2
+            bp1_chrom, bp1_pos = fusion['break_point1'].split(":")
+            bp2_chrom, bp2_pos = fusion['break_point2'].split(":")
             if bp1_chrom in chr_pos_dict:
                 chr_pos_dict[bp1_chrom].append(
                     {
-                        "bp_pos": bp1_pos,
+                        "bp_pos": int(bp1_pos),
                         "fusion_index": i,
                         "exon_1_2": "exon1",
                         "distance": large_bp_distance,
@@ -139,7 +133,7 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
             else:
                 chr_pos_dict[bp1_chrom] = [
                     {
-                        "bp_pos": bp1_pos,
+                        "bp_pos": int(bp1_pos),
                         "fusion_index": i,
                         "exon_1_2": "exon1",
                         "distance": large_bp_distance,
@@ -151,7 +145,7 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
             if bp2_chrom in chr_pos_dict:
                 chr_pos_dict[bp2_chrom].append(
                     {
-                        "bp_pos": bp2_pos,
+                        "bp_pos": int(bp2_pos),
                         "fusion_index": i,
                         "exon_1_2": "exon2",
                         "distance": large_bp_distance,
@@ -163,7 +157,7 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
             else:
                 chr_pos_dict[bp2_chrom] = [
                     {
-                        "bp_pos": bp2_pos,
+                        "bp_pos": int(bp2_pos),
                         "fusion_index": i,
                         "exon_1_2": "exon2",
                         "distance": large_bp_distance,
@@ -212,16 +206,19 @@ def annotate_fusion(filtered_fusions, input_gtf, transcript_black_list):
 
 
 def write_fusions(annotated_filtered_fusions, out_file):
-    out_file.write("fusion\tbreak_point1\texon1\tbreak_point2\texon2\tparalog\t")
+    out_file.write("fusion\tbreak_point1\tbreak_point2\tparalog\t")
     out_file.write("split_read_support\tmate_pair_support\ttotal_support\n")
     for data in annotated_filtered_fusions:
-        first = True
+        i = 0
         for d in data:
-            if first:
+            if i == 0:
                 out_file.write(f"{data[d]}")
-                first = False
+            # skip inexact exon annotation in output
+            elif i == 2 or i == 4:
+                pass
             else:
                 out_file.write(f"\t{data[d]}")
+            i += 1
         out_file.write(f"\n")
     out_file.close()
 

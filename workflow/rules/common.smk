@@ -67,6 +67,18 @@ def compile_output_list(wildcards):
         ]
     )
     files = {
+        "fusions/juli_call": [".annotated.txt"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_T%s" % (prefix, sample, suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "T" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
+    files = {
         "fusions/arriba_draw_fusion": [".pdf"],
     }
     output_files.extend(

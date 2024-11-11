@@ -9,6 +9,7 @@ include: "rules/arriba.smk"
 include: "rules/fuseq_wes.smk"
 include: "rules/fusioncatcher.smk"
 include: "rules/gene_fuse.smk"
+include: "rules/juli.smk"
 include: "rules/star_fusion.smk"
 
 

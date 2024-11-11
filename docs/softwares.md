@@ -183,3 +183,65 @@ Call fusions in RNA data. The program uses STAR internally for alignment. Additi
 #RESOURCESSCHEMA__star_fusion#
 
 ---
+## [juli_call](url_to_tool)
+Introduction to juli_call
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__juli__juli_call#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__juli__juli_call#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__juli_call#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__juli_call#
+
+## [juli_annotate](url_to_tool)
+Introduction to juli_annotate
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__juli__juli_annotate#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__juli__juli_annotate#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__juli_annotate#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__juli_annotate#
+
+## [juli_filter](url_to_tool)
+Introduction to juli_filter
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__juli__juli_filter#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__juli__juli_filter#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__juli_filter#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__juli_filter#

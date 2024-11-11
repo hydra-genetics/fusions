@@ -2,7 +2,7 @@ resources: "resources.yaml"
 samples: "samples.tsv"
 units: "units.tsv"
 
-default_container: "docker://hydragenetics/common:0.1.9"
+default_container: "docker://hydragenetics/common:3.0.1"
 
 arriba:
   assembly: "reference/WASH7P.fna"
@@ -39,6 +39,16 @@ gene_fuse:
   container: "docker://hydragenetics/genefuse:0.6.1"
   genes: "reference/gene_fuse_HES4.hg19.csv"
   fasta: "reference/HES45.fna"
+
+juli_annotate:
+  cosmic: "reference/refGene_hg19.txt"
+  pfam: "reference/CosmicFusionExport_V76.tsv"
+  ref_genes: "reference/Pfam-A.full.human"
+  uniprot: "reference/HGNC_GeneName_UniProtID_160524.txt"
+
+juli_call:
+  gap_file: "reference/gap_hg19.txt"
+  ref_genes: "reference/refGene_hg19.txt"
 
 star_fusion:
   container: "docker://hydragenetics/star-fusion:1.10.1"

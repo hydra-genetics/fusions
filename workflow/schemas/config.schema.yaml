@@ -169,6 +169,69 @@ properties:
         type: integer
         description: Lower limit (not inclusive) of unique reads needed for fusion to be included in report
 
+  juli_call:
+    type: object
+    description: parameters for juli_call
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: parameters that should be forwarded
+      gap_file:
+        type: string
+        description: gap information file from the UCSC database
+      juli_version: 
+        type: string
+        description: version of the R package that should be loaded 
+      ref_genes:
+        type: string
+        description: gene information file from the UCSC database
+
+  juli_annotate:
+    type: object
+    description: parameters for juli_annotate
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      cosmic:
+        type: string
+        description: cosmic data file
+      extra:
+        type: string
+        description: parameters that should be forwarded
+      pfam:
+        type: string
+        description: Pfam data file
+      ref_genes:
+        type: string
+        description: gene information file from the UCSC database
+      uniprot:
+        type: string
+        description: Uniprot data file
+
+  juli_filter:
+    type: object
+    description: parameters for juli_filter
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: parameters that should be forwarded
+
   star_fusion:
     type: object
     description: parameters for star fusion

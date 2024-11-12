@@ -21,10 +21,7 @@ rule juli_call:
     log:
         "fusions/juli_call/{sample}_{type}.txt.log",
     benchmark:
-        repeat(
-            "fusions/juli_call/{sample}_{type}.txt.benchmark.tsv",
-            config.get("juli_call", {}).get("benchmark_repeats", 1)
-        )
+        repeat("fusions/juli_call/{sample}_{type}.txt.benchmark.tsv", config.get("juli_call", {}).get("benchmark_repeats", 1))
     threads: config.get("juli_call", {}).get("threads", config["default_resources"]["threads"])
     resources:
         mem_mb=config.get("juli_call", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
@@ -42,7 +39,7 @@ rule juli_call:
         "callfusion("
         "CaseBam='{input.bam}', "
         "TestID='{params.sample_name}', "
-        "OutputPath='$(dirname {output.fusions}))', "
+        "OutputPath='$(dirname {output.fusions})', "
         "Thread={threads}, "
         "Refgene='{params.ref_genes}', "
         "Gap='{params.gap_file}', "
@@ -68,7 +65,7 @@ rule juli_annotate:
     benchmark:
         repeat(
             "fusions/juli_annotate/{sample}_{type}.annotated.txt.benchmark.tsv",
-            config.get("juli_annotate", {}).get("benchmark_repeats", 1)
+            config.get("juli_annotate", {}).get("benchmark_repeats", 1),
         )
     threads: config.get("juli_annotate", {}).get("threads", config["default_resources"]["threads"])
     resources:
@@ -95,17 +92,16 @@ rule juli_annotate:
 
 rule juli_filter:
     input:
-        input1="...",
+        fusions="fusions/juli_call/{sample}_{type}.annotated.txt",
     output:
-        output1="fusions/juli_filter/{sample}_{type}.output.txt",
+        fusions="fusions/juli_call/{sample}_{type}.annotated.filtered.txt",
     params:
         extra=config.get("juli_filter", {}).get("extra", ""),
     log:
         "fusions/juli_filter/{sample}_{type}.output.log",
     benchmark:
         repeat(
-            "fusions/juli_filter/{sample}_{type}.output.benchmark.tsv",
-            config.get("juli_filter", {}).get("benchmark_repeats", 1)
+            "fusions/juli_filter/{sample}_{type}.output.benchmark.tsv", config.get("juli_filter", {}).get("benchmark_repeats", 1)
         )
     threads: config.get("juli_filter", {}).get("threads", config["default_resources"]["threads"])
     resources:
@@ -118,5 +114,5 @@ rule juli_filter:
         config.get("juli_filter", {}).get("container", config["default_container"])
     message:
         "{rule}: do stuff on {input.input1}"
-    wrapper:
-        "..."
+    script:
+        "./scripts/filter_juli.py"

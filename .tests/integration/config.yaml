@@ -41,12 +41,14 @@ gene_fuse:
   fasta: "reference/HES45.fna"
 
 juli_annotate:
+  container: "docker://hydragenetics/juli:0.1.6.2"
   cosmic: "reference/refGene_hg19.txt"
   pfam: "reference/CosmicFusionExport_V76.tsv"
   ref_genes: "reference/Pfam-A.full.human"
   uniprot: "reference/HGNC_GeneName_UniProtID_160524.txt"
 
 juli_call:
+  container: "docker://hydragenetics/juli:0.1.6.2"
   gap_file: "reference/gap_hg19.txt"
   ref_genes: "reference/refGene_hg19.txt"
 

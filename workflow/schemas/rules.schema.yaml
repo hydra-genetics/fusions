@@ -94,7 +94,7 @@ properties:
 
   fuseq_wes:
     type: object
-    description: input and output parameters for arriba_draw_fusion
+    description: input and output parameters for fuseq_wes
     properties:
       input:
         type: object
@@ -102,10 +102,10 @@ properties:
         properties:
           bam:
             type: string
-            description: Bam file from a split-aware aligner like STAR
+            description: aligned bam file from 
           bai:
             type: string
-            description: Bam index file
+            description: bam index file
           ref_json:
             type: string
             description: JSON file with transcript regions
@@ -231,6 +231,69 @@ properties:
             type: string
             description: Filtered fusions
 
+  juli_call:
+    type: object
+    description: input and output parameters for juli_call
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: aligned bam file from 
+          bai:
+            type: string
+            description: bam index file
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: list of candidate fusion calls
+
+  juli_annotate:
+    type: object
+    description: input and output parameters for juli_annotate
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fusions:
+            type: string
+            description: list of candidate fusions
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: annotated list of candidate fusions
+          pdf:
+            type: string
+            description: visualization of the fusion candidates in pdf-format
+
+  juli_filter:
+    type: object
+    description: input and output parameters for juli_filter
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          fusions:
+            type: string
+            description: annotated list of candidate fusions
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          fusions:
+            type: string
+            description: filtered list of annotated fusions
+
   star_fusion:
     type: object
     description: input and output parameters for star_fusion
@@ -295,71 +358,3 @@ properties:
             description: Alignment intermediate directory
 
 
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
-  juli_call:
-    type: object
-    description: input and output parameters for juli_call
-    properties:
-      input:
-        type: object
-        description: list of inputs
-        properties:
-          input1:
-            type: string
-            description: description input1
-            #value: set to override value in table, else remove
-
-      output:
-        type: object
-        description: list of outputs
-        properties:
-          output1:
-            type: string
-            description: description output1
-            #value: set to override value in table, else remove
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
-  juli_annotate:
-    type: object
-    description: input and output parameters for juli_annotate
-    properties:
-      input:
-        type: object
-        description: list of inputs
-        properties:
-          input1:
-            type: string
-            description: description input1
-            #value: set to override value in table, else remove
-
-      output:
-        type: object
-        description: list of outputs
-        properties:
-          output1:
-            type: string
-            description: description output1
-            #value: set to override value in table, else remove
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
-  juli_filter:
-    type: object
-    description: input and output parameters for juli_filter
-    properties:
-      input:
-        type: object
-        description: list of inputs
-        properties:
-          input1:
-            type: string
-            description: description input1
-            #value: set to override value in table, else remove
-
-      output:
-        type: object
-        description: list of outputs
-        properties:
-          output1:
-            type: string
-            description: description output1
-            #value: set to override value in table, else remove

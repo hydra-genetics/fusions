@@ -67,7 +67,7 @@ def compile_output_list(wildcards):
         ]
     )
     files = {
-        "fusions/juli_call": [".annotated.txt"],
+        "fusions/juli_call": [".annotated.filtered.txt"],
     }
     output_files.extend(
         [

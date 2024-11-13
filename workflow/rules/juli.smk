@@ -9,8 +9,8 @@ rule juli_call:
         bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
         bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
     output:
-        bamstat="fusions/juli_call/{sample}_{type}.BamStat.txt",
-        fusions="fusions/juli_call/{sample}_{type}.txt",
+        bamstat=temp("fusions/juli_call/{sample}_{type}.BamStat.txt"),
+        fusions=temp("fusions/juli_call/{sample}_{type}.txt"),
     params:
         extra=config.get("juli_call", {}).get("extra", ""),
         gap_file=config.get("juli_call", {}).get("gap_file", ""),
@@ -51,8 +51,8 @@ rule juli_annotate:
     input:
         fusions="fusions/juli_call/{sample}_{type}.txt",
     output:
-        fusions="fusions/juli_call/{sample}_{type}.annotated.txt",
-        pdf="fusions/juli_call/{sample}_{type}.annotated.gene.pdf",
+        fusions=temp("fusions/juli_call/{sample}_{type}.annotated.txt"),
+        pdf=temp("fusions/juli_call/{sample}_{type}.annotated.gene.pdf"),
     params:
         cosmic=config.get("juli_annotate", {}).get("cosmic", ""),
         extra=config.get("juli_annotate", {}).get("extra", ""),
@@ -94,7 +94,7 @@ rule juli_filter:
     input:
         fusions="fusions/juli_call/{sample}_{type}.annotated.txt",
     output:
-        fusions="fusions/juli_call/{sample}_{type}.annotated.filtered.txt",
+        fusions=temp("fusions/juli_call/{sample}_{type}.annotated.filtered.txt"),
     params:
         cosmic_filter=config.get("juli_filter", {}).get("cosmic_filter", True),
         discordant_limit=config.get("juli_filter", {}).get("discordant_limit", 0),

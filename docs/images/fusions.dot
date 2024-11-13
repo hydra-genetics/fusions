@@ -8,6 +8,9 @@ digraph snakemake_dag {
 	2[label = "gene_fuse", color = "0.30 0.6 0.85", style="rounded"];
 	3[label = "filter_report_fuseq_wes", color = "0.44 0.6 0.85", style="rounded"];
 	4[label = "fuseq_wes", color = "0.15 0.6 0.85", style="rounded"];
+	41[label = "juli_call", color = "0.15 0.6 0.85", style="rounded"];
+	42[label = "juli_annotate", color = "0.15 0.6 0.85", style="rounded"];
+	43[label = "juli_filter", color = "0.15 0.6 0.85", style="rounded"];
 	5[label = "arriba_draw_fusion", color = "0.52 0.6 0.85", style="rounded"];
 	6[label = "arriba", color = "0.07 0.6 0.85", style="rounded"];
 	7[label = "star_fusion", color = "0.59 0.6 0.85", style="rounded"];
@@ -27,4 +30,8 @@ digraph snakemake_dag {
 	9 -> 7
 	9 -> 2
 	10 -> 4
+	10 -> 41
+	41 -> 42
+	42 -> 43
+	43 -> 0
 }            

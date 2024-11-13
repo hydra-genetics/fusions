@@ -228,9 +228,18 @@ properties:
       container:
         type: string
         description: name or path to docker/singularity container
-      extra:
-        type: string
-        description: parameters that should be forwarded
+      cosmic_filter:
+        type: boolean
+        description: should fusions be filtered based on cosmic entries or not (default = True)
+      discordant_limit:
+        type: integer
+        description: filter fusions based on minimum number of discordant read pairs (default = 0)
+      split_reads_limit:
+        type: integer
+        description: filter fusions based on minimum number of split reads (default = 0)
+      total_support_limit:
+        type: integer
+        description: filter fusions based on total number of read support (default = 0)
 
   star_fusion:
     type: object

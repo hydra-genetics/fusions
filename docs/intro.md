@@ -6,7 +6,8 @@ The fusions module consists of programs used for finding fusions or translocatio
 | Caller | Type | Comment |
 |-|-|-|
 | [FuSeq_WES](https://github.com/nghiavtr/FuSeq_WES) | DNA | Uses all transcripts |
-| [GeneFuse](https://github.com/OpenGene/GeneFuse) | _ _ | Uses only selected transcripts |
+| [GeneFuse](https://github.com/OpenGene/GeneFuse) | | Uses only selected transcripts |
+| [JuLI](https://github.com/sgilab/JuLI) | _ _ | Uses all transcripts |
 | [Arriba](https://github.com/suhrig/arriba) | RNA | Uses external STAR aligner |
 | [STAR-Fusion](https://github.com/STAR-Fusion/STAR-Fusion) | | Uses built in STAR aligner |
 | [FusionCatcher](https://github.com/ndaniel/fusioncatcher) | _ _ | Uses several built in aligners |
@@ -30,6 +31,7 @@ The fusion results are reported in simple text format files.
 
 * `fusions/filter_fuseq_wes/{sample}_{type}.fuseq_wes.report.csv`
 * `fusions/gene_fuse_report/{sample}_{type}_gene_fuse_fusions_report.txt`
+* `fusions/juli_call/{sample}_{type}.annotated.filtered.txt`
 * `fusions/arriba/{sample}_{type}.fusions.tsv`
 * `fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.abridged.tsv"`
 * `fusions/fusioncatcher/{sample}_{type}/final-list_candidate-fusion-genes.hg19.txt`

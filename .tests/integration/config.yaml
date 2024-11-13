@@ -42,9 +42,9 @@ gene_fuse:
 
 juli_annotate:
   container: "docker://hydragenetics/juli:0.1.6.2"
-  cosmic: "reference/refGene_hg19.txt"
-  pfam: "reference/CosmicFusionExport_V76.tsv"
-  ref_genes: "reference/Pfam-A.full.human"
+  cosmic: "reference/CosmicFusionExport_V76.tsv"
+  pfam: "reference/Pfam-A.full.human"
+  ref_genes: "reference/refGene_hg19.txt"
   uniprot: "reference/HGNC_GeneName_UniProtID_160524.txt"
 
 juli_call:

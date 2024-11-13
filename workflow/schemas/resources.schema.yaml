@@ -175,30 +175,6 @@ properties:
         type: string
         description: max execution time
 
-  star_fusion:
-    type: object
-    description: resource definitions for star_fusion
-    properties:
-      mem_mb:
-        type: integer
-        description: memory used
-      mem_per_cpu:
-        type: integer
-        description: memory used per cpu
-      partition:
-        type: string
-        description: partition to use on the cluster
-      threads:
-        type: integer
-        description: | 
-          number of threads that will be used
-          NOTE: Use several threads for faster execution time
-      time:
-        type: string
-        description: max execution time
-
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
   juli_call:
     type: object
     description: resource definitions for juli_call
@@ -219,9 +195,6 @@ properties:
         type: string
         description: max execution time
 
-
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
   juli_annotate:
     type: object
     description: resource definitions for juli_annotate
@@ -242,9 +215,6 @@ properties:
         type: string
         description: max execution time
 
-
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
   juli_filter:
     type: object
     description: resource definitions for juli_filter
@@ -261,6 +231,28 @@ properties:
       threads:
         type: integer
         description: number of threads to be available
+      time:
+        type: string
+        description: max execution time
+
+  star_fusion:
+    type: object
+    description: resource definitions for star_fusion
+    properties:
+      mem_mb:
+        type: integer
+        description: memory used
+      mem_per_cpu:
+        type: integer
+        description: memory used per cpu
+      partition:
+        type: string
+        description: partition to use on the cluster
+      threads:
+        type: integer
+        description: | 
+          number of threads that will be used
+          NOTE: Use several threads for faster execution time
       time:
         type: string
         description: max execution time

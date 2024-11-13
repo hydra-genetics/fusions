@@ -207,8 +207,8 @@ Annotated fusions called in DNA data by JuLI.
 
 ---
 
-## [juli_filter](url_to_tool)
-Introduction to juli_filter
+## [juli_filter](https://github.com/hydra-genetics/fusions/blob/develop/workflow/scripts/filter_juli.py)
+Filter fusions called in DNA data by JuLI.
 
 ### :snake: Rule
 

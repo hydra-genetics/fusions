@@ -104,7 +104,8 @@ rule juli_filter:
         "fusions/juli_filter/{sample}_{type}.annotated.filtered.txt.log",
     benchmark:
         repeat(
-            "fusions/juli_filter/{sample}_{type}.annotated.filtered.txt.benchmark.tsv", config.get("juli_filter", {}).get("benchmark_repeats", 1)
+            "fusions/juli_filter/{sample}_{type}.annotated.filtered.txt.benchmark.tsv",
+            config.get("juli_filter", {}).get("benchmark_repeats", 1),
         )
     threads: config.get("juli_filter", {}).get("threads", config["default_resources"]["threads"])
     resources:

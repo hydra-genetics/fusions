@@ -14,7 +14,7 @@ def filter_fusions(in_file, out_file, cosmic_filter, discordant_limit, split_rea
     for fusion in in_file:
         columns = {k: v for k, v in zip(header_list, fusion.strip("\n").split("\t"))}
         cosmic = columns["Cosmic"]
-        if cosmic == "" and cosmic_filter == True:
+        if cosmic == "" and cosmic_filter is True:
             continue
         discordant = int(columns["DisA"]) + int(columns["DisB"])
         split = int(columns["SplitA"]) + int(columns["SplitB"])
@@ -24,9 +24,6 @@ def filter_fusions(in_file, out_file, cosmic_filter, discordant_limit, split_rea
         out_file.write(fusion)
         results.append(fusion)
     return results
-
-
-
 
 
 if __name__ == "__main__":

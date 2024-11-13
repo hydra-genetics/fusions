@@ -161,30 +161,8 @@ Simple filter of the DNA fusions called by gene_fuse based on the number of uniq
 
 ---
 
-## [star_fusion](https://github.com/STAR-Fusion/STAR-Fusion)
-Call fusions in RNA data. The program uses STAR internally for alignment. Additional filtering is recommended. 
-
-### :snake: Rule
-
-#SNAKEMAKE_RULE_SOURCE__star_fusion__star_fusion#
-
-#### :left_right_arrow: input / output files
-
-#SNAKEMAKE_RULE_TABLE__star_fusion__star_fusion#
-
-### :wrench: Configuration
-
-#### Software settings (`config.yaml`)
-
-#CONFIGSCHEMA__star_fusion#
-
-#### Resources settings (`resources.yaml`)
-
-#RESOURCESSCHEMA__star_fusion#
-
----
-## [juli_call](url_to_tool)
-Introduction to juli_call
+## [juli_call](https://github.com/sgilab/JuLI)
+Call fusions in DNA data. 
 
 ### :snake: Rule
 
@@ -204,8 +182,10 @@ Introduction to juli_call
 
 #RESOURCESSCHEMA__juli_call#
 
-## [juli_annotate](url_to_tool)
-Introduction to juli_annotate
+---
+
+## [juli_annotate](https://github.com/sgilab/JuLI)
+Annotated fusions called in DNA data by JuLI.
 
 ### :snake: Rule
 
@@ -224,6 +204,8 @@ Introduction to juli_annotate
 #### Resources settings (`resources.yaml`)
 
 #RESOURCESSCHEMA__juli_annotate#
+
+---
 
 ## [juli_filter](url_to_tool)
 Introduction to juli_filter
@@ -245,3 +227,27 @@ Introduction to juli_filter
 #### Resources settings (`resources.yaml`)
 
 #RESOURCESSCHEMA__juli_filter#
+
+---
+
+## [star_fusion](https://github.com/STAR-Fusion/STAR-Fusion)
+Call fusions in RNA data. The program uses STAR internally for alignment. Additional filtering is recommended. 
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__star_fusion__star_fusion#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__star_fusion__star_fusion#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__star_fusion#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__star_fusion#
+

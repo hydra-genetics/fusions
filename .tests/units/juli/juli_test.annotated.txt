@@ -1,0 +1,6 @@
+ChrA	BreakA	OriA	DisA	SplitA	ChrB	BreakB	OriB	DisB	SplitB	Event	GeneA	StrGeneA	GeneB	StrGeneB	InfoA	InfoB	Direction	Frame	Cosmic
+chr2	30053808	1	11	17	chr4	183934636	1	17	71	Interchromosomal_translocation	ALK	-	Flanking_FAM92A1P2	+	NM_004304_Intron(1/28)_Frame(1)		Flanking_FAM92A1P2->ALK		
+chr2	29447837	1	11	28	chr2	42526358	1	11	20	Inversion	ALK	-	EML4	+	NM_004304_Intron(19/28)_Frame(1)	NM_019063_Intron(13/22)_Frame(1)	EML4->ALK	Inframe	lung(1126)_thyroid(14)
+chr2	29448230	1	10	28	chr2	42501179	1	10	17	Inversion	ALK	-	EML4	+	NM_004304_Intron(19/28)_Frame(1)	NM_019063_Intron(6/22)_Frame(1)	EML4->ALK	Inframe	lung(1126)_thyroid(14)
+chr1	186325171	0	9	15	chr2	29446943	1	9	20	Interchromosomal_translocation	TPR	-	ALK	-	NM_003292_Intron(15/50)_Frame(1)	NM_004304_Intron(19/28)_Frame(1)	TPR->ALK	Inframe	
+chr2	29446685	1	8	30	chr2	42523824	1	8	24	Inversion	ALK	-	EML4	+	NM_004304_Intron(19/28)_Frame(1)	NM_019063_Intron(13/22)_Frame(1)	EML4->ALK	Inframe	lung(1126)_thyroid(14)

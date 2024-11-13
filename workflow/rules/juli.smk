@@ -96,12 +96,15 @@ rule juli_filter:
     output:
         fusions="fusions/juli_call/{sample}_{type}.annotated.filtered.txt",
     params:
-        extra=config.get("juli_filter", {}).get("extra", ""),
+        cosmic_filter=config.get("juli_filter", {}).get("cosmic_filter", True),
+        discordant_limit=config.get("juli_filter", {}).get("discordant_limit", 0),
+        split_reads_limit=config.get("juli_filter", {}).get("split_reads_limit", 0),
+        total_support_limit=config.get("juli_filter", {}).get("total_support_limit", 0),
     log:
-        "fusions/juli_filter/{sample}_{type}.output.log",
+        "fusions/juli_filter/{sample}_{type}.annotated.filtered.txt.log",
     benchmark:
         repeat(
-            "fusions/juli_filter/{sample}_{type}.output.benchmark.tsv", config.get("juli_filter", {}).get("benchmark_repeats", 1)
+            "fusions/juli_filter/{sample}_{type}.annotated.filtered.txt.benchmark.tsv", config.get("juli_filter", {}).get("benchmark_repeats", 1)
         )
     threads: config.get("juli_filter", {}).get("threads", config["default_resources"]["threads"])
     resources:
@@ -113,6 +116,6 @@ rule juli_filter:
     container:
         config.get("juli_filter", {}).get("container", config["default_container"])
     message:
-        "{rule}: do stuff on {input.input1}"
+        "{rule}: Filter fusions found in {input.fusions} into {output.fusions}"
     script:
         "./scripts/filter_juli.py"

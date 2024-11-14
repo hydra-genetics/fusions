@@ -169,6 +169,78 @@ properties:
         type: integer
         description: Lower limit (not inclusive) of unique reads needed for fusion to be included in report
 
+  juli_call:
+    type: object
+    description: parameters for juli_call
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: parameters that should be forwarded
+      gap_file:
+        type: string
+        description: gap information file from the UCSC database
+      juli_version: 
+        type: string
+        description: version of the R package that should be loaded 
+      ref_genes:
+        type: string
+        description: gene information file from the UCSC database
+
+  juli_annotate:
+    type: object
+    description: parameters for juli_annotate
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      cosmic:
+        type: string
+        description: cosmic data file
+      extra:
+        type: string
+        description: parameters that should be forwarded
+      pfam:
+        type: string
+        description: Pfam data file
+      ref_genes:
+        type: string
+        description: gene information file from the UCSC database
+      uniprot:
+        type: string
+        description: Uniprot data file
+
+  juli_filter:
+    type: object
+    description: parameters for juli_filter
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      cosmic_filter:
+        type: boolean
+        description: should fusions be filtered based on cosmic entries or not (default = True)
+      discordant_limit:
+        type: integer
+        description: filter fusions based on minimum number of discordant read pairs (default = 0)
+      split_reads_limit:
+        type: integer
+        description: filter fusions based on minimum number of split reads (default = 0)
+      total_support_limit:
+        type: integer
+        description: filter fusions based on total number of read support (default = 0)
+
   star_fusion:
     type: object
     description: parameters for star fusion

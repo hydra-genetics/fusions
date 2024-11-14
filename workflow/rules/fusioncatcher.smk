@@ -15,7 +15,7 @@ rule fusioncatcher:
     params:
         output_dir=temp(directory("fusions/fusioncatcher/{sample}_{type}/")),
         genome_path=config.get("fusioncatcher", {}).get("genome_path", ""),
-        extra=config.get("fusioncatcher", {}).get("extra", "--visualization-sam"),
+        extra=config.get("fusioncatcher", {}).get("extra", ""),
     log:
         "fusions/fusioncatcher/{sample}_{type}.final-list_candidate-fusion-genes.hg19.txt.log",
     benchmark:

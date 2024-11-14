@@ -43,7 +43,6 @@ wildcard_constraints:
 
 
 def compile_output_list(wildcards):
-
     files = {
         "fusions/gene_fuse_report": ["_gene_fuse_fusions_report.txt"],
     }
@@ -56,6 +55,18 @@ def compile_output_list(wildcards):
     ]
     files = {
         "fusions/filter_fuseq_wes": [".fuseq_wes.report.csv"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_T%s" % (prefix, sample, suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "T" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
+    files = {
+        "fusions/juli_call": [".annotated.filtered.txt"],
     }
     output_files.extend(
         [

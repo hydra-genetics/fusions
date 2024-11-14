@@ -1,7 +1,13 @@
+import sys
 import tempfile
 import os
 import unittest
 
+TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+SCRIPT_DIR = os.path.abspath(os.path.join(TEST_DIR, "../../workflow/scripts"))
+sys.path.insert(0, SCRIPT_DIR)
+
+from filter_report_fuseq_wes import filter_fusion, get_breakpoints, annotate_fusion
 
 class TestUnitUtils(unittest.TestCase):
     def setUp(self):
@@ -45,10 +51,6 @@ class TestUnitUtils(unittest.TestCase):
                 raise e
 
     def test_report_fusion(self):
-
-        from filter_report_fuseq_wes import filter_fusion
-        from filter_report_fuseq_wes import get_breakpoints
-        from filter_report_fuseq_wes import annotate_fusion
 
         breakpoint = ".tests/units/fuseq_wes/Sample1/FuSeq_WES_SR_fge_fdb.txt"
         sample = "Sample1"

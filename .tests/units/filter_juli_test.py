@@ -1,7 +1,13 @@
+import sys
 import tempfile
 import os
 import unittest
 
+TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+SCRIPT_DIR = os.path.abspath(os.path.join(TEST_DIR, "../../workflow/scripts"))
+sys.path.insert(0, SCRIPT_DIR)
+
+from filter_juli import filter_fusions
 
 class TestUnitUtils(unittest.TestCase):
     def setUp(self):
@@ -27,8 +33,6 @@ class TestUnitUtils(unittest.TestCase):
             j += 1
 
     def test_filter_fusions(self):
-
-        from filter_juli import filter_fusions
 
         fusions = ".tests/units/juli/juli_test.annotated.txt"
 

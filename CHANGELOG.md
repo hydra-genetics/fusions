@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.0](https://www.github.com/hydra-genetics/fusions/compare/v0.1.0...v0.2.0) (2024-11-14)
+
+
+### Features
+
+* added DNA fusion caller JuLI rules ([06aa8c7](https://www.github.com/hydra-genetics/fusions/commit/06aa8c74d437608b3927ebc1c70a2987a362bdcd))
+* added fusion filtering ([db7aca7](https://www.github.com/hydra-genetics/fusions/commit/db7aca74f6ba5c44c7b81f3eb4c6434eca4229b7))
+* remove time consuming default setting in fusioncatcher ([06c3475](https://www.github.com/hydra-genetics/fusions/commit/06c34752c52ca261910c767033d87da67e49772f))
+
+
+### Bug Fixes
+
+* correct common container ([7ee6059](https://www.github.com/hydra-genetics/fusions/commit/7ee605971bfb4f751af5a2cac296bd4f45e4b570))
+* **juli_call:** command bugfix ([d83faf5](https://www.github.com/hydra-genetics/fusions/commit/d83faf5a8b1acbb467ac46d5de1a9973335aaa62))
+
+
+### Documentation
+
+* corrected path to hydra-genetics logo ([fc940a0](https://www.github.com/hydra-genetics/fusions/commit/fc940a00fcd0553db7902f582a6dc4c075b49e5e))
+* **JuLI:** added documentation ([36f5005](https://www.github.com/hydra-genetics/fusions/commit/36f50057d568327725af225d5e4932704b9e856f))
+
 ## 0.1.0 (2023-11-10)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.1](https://www.github.com/hydra-genetics/fusions/compare/v0.2.0...v0.2.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* **filter_juli:** corrected scripts path ([70a8cfc](https://www.github.com/hydra-genetics/fusions/commit/70a8cfcbb3cde73a26eaf5e557fa72e64e16140d))
+
 ## [0.2.0](https://www.github.com/hydra-genetics/fusions/compare/v0.1.0...v0.2.0) (2024-11-14)
 
 

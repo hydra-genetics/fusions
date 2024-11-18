@@ -119,4 +119,4 @@ rule juli_filter:
     message:
         "{rule}: Filter fusions found in {input.fusions} into {output.fusions}"
     script:
-        "./scripts/filter_juli.py"
+        "../scripts/filter_juli.py"

@@ -30,7 +30,7 @@ if __name__ == "__main__":
     log = snakemake.log_fmt_shell(stdout=False, stderr=True)
     in_file = open(snakemake.input.fusions)
     out_file = open(snakemake.output.fusions, "w")
-    cosmic_filter = snakemake.params.cosmic
+    cosmic_filter = snakemake.params.cosmic_filter
     discordant_limit = int(snakemake.params.discordant_limit)
     split_reads_limit = int(snakemake.params.split_reads_limit)
     total_support_limit = int(snakemake.params.total_support_limit)

@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.2](https://www.github.com/hydra-genetics/fusions/compare/v0.2.1...v0.2.2) (2024-11-28)
+
+
+### Bug Fixes
+
+* **juli_filter:** correct parameter name ([2a2f2c7](https://www.github.com/hydra-genetics/fusions/commit/2a2f2c7cae7f057217875f4089abba30cc9455c0))
+
 ### [0.2.1](https://www.github.com/hydra-genetics/fusions/compare/v0.2.0...v0.2.1) (2024-11-18)
 
 

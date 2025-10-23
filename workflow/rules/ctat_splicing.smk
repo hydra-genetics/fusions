@@ -9,11 +9,11 @@ rule ctat_splicing_call:
         sj_tab_file="alignment/star/{sample}_{type}.SJ.out.tab",
         bam="alignment/star/{sample}_{type}.bam",
     output:
-        bai=temp("fusions/ctat_splicing_call/cancer_intron_reads.sorted.bam.bai"),
-        bam=temp("fusions/ctat_splicing_call/cancer_intron_reads.sorted.bam"),
+        bai=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer_intron_reads.sorted.bam.bai"),
+        bam=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer_intron_reads.sorted.bam"),
         cancer_splicing=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer.introns"),
         igv_splicing=temp("fusions/ctat_splicing_call/{sample}_{type}.ctat-splicing.igv.html"),
-        result_dir=temp(directory("fusions/ctat_splicing_call/ctat_out")),
+        result_dir=temp(directory("fusions/ctat_splicing_call/ctat_out_{sample}_{type}")),
     params:
         ctat_genome_lib=config.get("ctat_splicing_call", {}).get("ctat_genome_lib_path", ""),
         extra=config.get("ctat_splicing_call", {}).get("extra", ""),
@@ -35,7 +35,7 @@ rule ctat_splicing_call:
     container:
         config.get("ctat_splicing_call", {}).get("container", config["default_container"])
     message:
-        "{rule}: do stuff on {input.input1}"
+        "{rule}: Call splicing into html report {output.cancer_splicing}"
     shell:
         "import os"
         "/usr/local/src/CTAT-SPLICING/STAR_to_cancer_introns.py "

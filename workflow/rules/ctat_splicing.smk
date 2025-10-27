@@ -13,7 +13,7 @@ rule ctat_splicing_call:
         bam=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer_intron_reads.sorted.bam"),
         cancer_splicing=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer.introns"),
         igv_splicing=temp("fusions/ctat_splicing_call/{sample}_{type}.ctat-splicing.igv.html"),
-        result_dir=temp(directory("fusions/ctat_splicing_call/ctat_out_{sample}_{type}")),
+        temp_result_dir=temp(directory("fusions/ctat_splicing_call/ctat_out_{sample}_{type}")),
     params:
         ctat_genome_lib=config.get("ctat_splicing_call", {}).get("ctat_genome_lib_path", ""),
         extra=config.get("ctat_splicing_call", {}).get("extra", ""),
@@ -37,14 +37,14 @@ rule ctat_splicing_call:
     message:
         "{rule}: Call splicing into html report {output.cancer_splicing}"
     shell:
-        "STAR_to_cancer_introns.py "
+        "python STAR_to_cancer_introns.py "
         "--SJ_tab_file {input.sj_tab_file} "
         "--vis "
         "--bam_file {input.bam} "
-        "--output_prefix {output.result_dir}/{params.sample_name} "
+        "--output_prefix {output.temp_result_dir}/{params.sample_name} "
         "--sample_name {params.sample_name} "
         "--ctat_genome_lib /data/ref_data/star-fusion/GRCh37_gencode_v19_CTAT_lib_Mar012021.plug-n-play/ctat_genome_lib_build_dir/ || "
-        "cp {output.result_dir}/os.path.basename({output.cancer_splicing}) {output.cancer_splicing} || "
-        "cp {output.result_dir}/os.path.basename({output.igv_splicing}) {output.igv_splicing} || "
-        "cp {output.result_dir}/os.path.basename({output.bam}) {output.bam} || "
-        "cp {output.result_dir}/os.path.basename({output.bai}) {output.bai}"
+        "cp {output.temp_result_dir}/{params.sample_name}.cancer.introns {output.cancer_splicing} || "
+        "cp {output.temp_result_dir}/{params.sample_name}.ctat-splicing.igv.html {output.igv_splicing} || "
+        "cp {output.temp_result_dir}/{params.sample_name}.cancer_intron_reads.sorted.bam {output.bam} || "
+        "cp {output.temp_result_dir}/{params.sample_name}.cancer_intron_reads.sorted.bam.bai {output.bai}"

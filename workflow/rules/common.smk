@@ -4,6 +4,7 @@ __email__ = "jonas.almlof@igp.uu.se"
 __license__ = "GPL-3"
 
 import pandas as pd
+import os
 from snakemake.utils import validate
 from snakemake.utils import min_version
 

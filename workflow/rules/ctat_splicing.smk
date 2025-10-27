@@ -37,7 +37,7 @@ rule ctat_splicing_call:
     message:
         "{rule}: Call splicing into html report {output.cancer_splicing}"
     shell:
-        "python STAR_to_cancer_introns.py "
+        "STAR_to_cancer_introns.py "
         "--SJ_tab_file {input.sj_tab_file} "
         "--vis "
         "--bam_file {input.bam} "

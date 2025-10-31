@@ -7,6 +7,7 @@ __license__ = "GPL-3"
 rule ctat_splicing_call:
     input:
         sj_tab_file="alignment/star/{sample}_{type}.SJ.out.tab",
+        bai="alignment/star/{sample}_{type}.bam.bai",
         bam="alignment/star/{sample}_{type}.bam",
     output:
         bai=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer_intron_reads.sorted.bam.bai"),

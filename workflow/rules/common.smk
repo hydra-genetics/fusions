@@ -104,7 +104,7 @@ def compile_output_list(wildcards):
         ]
     )
     files = {
-        "fusions/ctat_splicing_call": [".ctat-splicing.igv.html"],
+        "fusions/ctat_splicing_filter": [".cancer.introns.filtered.tsv"],
     }
     output_files.extend(
         [

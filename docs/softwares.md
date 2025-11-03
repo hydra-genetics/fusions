@@ -251,3 +251,46 @@ Call fusions in RNA data. The program uses STAR internally for alignment. Additi
 
 #RESOURCESSCHEMA__star_fusion#
 
+
+## [ctat_splicing_call](https://github.com/TrinityCTAT/CTAT-SPLICING)
+Uses ctat-splicing to find cancer relevant introns with non-normal splicing, like MET exon 14 skipping and EGFR exon deletions.
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__ctat_splicing__ctat_splicing_call#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__ctat_splicing__ctat_splicing_call#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__ctat_splicing_call#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__ctat_splicing_call#
+
+## [ctat_splicing_filter](https://github.com/hydra-genetics/fusions/blob/develop/workflow/scripts/ctat_splicing_filter.py)
+Filter the results from ctat-splicing based on a user defined filter file. If no file is given, no filtering will be performed.
+The format of the filter file is 'gene\tvariant_name\tnr_unique_reads'. Variant_name can be left empty to get all records of that gene. Variant name can also be a list separated by ','. A 0 in nr_unique_reads will not filter any records of that gene. 
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__ctat_splicing__ctat_splicing_filter#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__ctat_splicing__ctat_splicing_filter#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__ctat_splicing_filter#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__ctat_splicing_filter#

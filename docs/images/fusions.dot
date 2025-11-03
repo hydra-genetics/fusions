@@ -15,8 +15,11 @@ digraph snakemake_dag {
 	6[label = "arriba", color = "0.07 0.6 0.85", style="rounded"];
 	7[label = "star_fusion", color = "0.59 0.6 0.85", style="rounded"];
 	8[label = "fusioncatcher", color = "0.37 0.6 0.85", style="rounded"];
+	81[label = "ctat-splicing", color = "0.37 0.6 0.85", style="rounded"];
+	82[label = "ctat-splicing-filter", color = "0.37 0.6 0.85", style="rounded"];
 	9[label = "fastq", color = "0.0 0.0 0.0", style="dotted"];
 	10[label = "bam", color = "0.0 0.0 0.0", style="dotted"];
+	11[label = "star-junction", color = "0.0 0.0 0.0", style="dotted"];
 	1 -> 0
 	8 -> 0
 	3 -> 0
@@ -26,6 +29,9 @@ digraph snakemake_dag {
 	4 -> 3
 	6 -> 5
 	10 -> 6
+	11 -> 81
+	10 -> 81
+	81 -> 82
 	9 -> 8
 	9 -> 7
 	9 -> 2

@@ -66,6 +66,46 @@ properties:
         type: string
         description: max execution time
 
+  ctat_splicing_call:
+    type: object
+    description: resource definitions for ctat_splicing_call
+    properties:
+      mem_mb:
+        type: integer
+        description: max memory in MB to be available
+      mem_per_cpu:
+        type: integer
+        description: memory in MB used per cpu
+      partition:
+        type: string
+        description: partition to use on cluster
+      threads:
+        type: integer
+        description: number of threads to be available
+      time:
+        type: string
+        description: max execution time
+
+  ctat_splicing_filter:
+    type: object
+    description: resource definitions for ctat_splicing_filter
+    properties:
+      mem_mb:
+        type: integer
+        description: max memory in MB to be available
+      mem_per_cpu:
+        type: integer
+        description: memory in MB used per cpu
+      partition:
+        type: string
+        description: partition to use on cluster
+      threads:
+        type: integer
+        description: number of threads to be available
+      time:
+        type: string
+        description: max execution time
+
   filter_report_fuseq_wes:
     type: object
     description: resource definitions for filtering fuseq_wes output and generate a report
@@ -256,4 +296,3 @@ properties:
       time:
         type: string
         description: max execution time
-

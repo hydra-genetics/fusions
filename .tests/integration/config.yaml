@@ -20,6 +20,9 @@ ctat_splicing_call:
   container: "docker://hydragenetics/ctat-splicing:0.0.3"
   ctat_genome_lib_path: "reference/"
 
+ctat_splicing_filter:
+  filtering_file: "reference/filter_ctat_splicing.tsv"
+
 filter_fuseq_wes:
   min_support: 30
   gene_white_list: "reference/fuseq_wes_gene_white_list.txt"

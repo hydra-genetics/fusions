@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/hydra-genetics/fusions/compare/v0.2.2...v0.3.0) (2025-11-05)
+
+
+### Features
+
+* added ctat-splicing ([684417b](https://www.github.com/hydra-genetics/fusions/commit/684417b6db851f2254110a0cebffe011bafbc4af))
+* added filtering of ctat-splicing as well as documentation ([64851f6](https://www.github.com/hydra-genetics/fusions/commit/64851f69ca6cca72b9e7ad3c7643a794a1e9ba89))
+
+
+### Bug Fixes
+
+* added log and rm python from command ([632611c](https://www.github.com/hydra-genetics/fusions/commit/632611c9336b6092b4eec5ad411a2becb52712e3))
+* **ctat_splicing:** added bai file as input ([1b19966](https://www.github.com/hydra-genetics/fusions/commit/1b19966b458fd09bd2e43d4ea44331578cb99834))
+* fix temporary output copy command ([70746db](https://www.github.com/hydra-genetics/fusions/commit/70746db9fd6c351bed09da513cf4f57a7a234b5c))
+* missing command parameter ([78be58a](https://www.github.com/hydra-genetics/fusions/commit/78be58a52381d4a99ba0933133b87e13ba7a45f5))
+* path to python file in docker updated ([49468b6](https://www.github.com/hydra-genetics/fusions/commit/49468b6de758f7f9189e675f88015bdfa00288dc))
+* updated ctat-splicing output to filtered tsv ([25e8d40](https://www.github.com/hydra-genetics/fusions/commit/25e8d40f95d644238175b2d8192e9ef97d2a886f))
+* use correct logical separator ([ab5921b](https://www.github.com/hydra-genetics/fusions/commit/ab5921b61ed9cf9fb949ddbf1e856ef4bc386873))
+* wildcards and testing ([93a9d52](https://www.github.com/hydra-genetics/fusions/commit/93a9d52cfb714954d31a53c6f2f6b327c544209a))
+
+
+### Documentation
+
+* Apply suggestions from code review ([b7b75e4](https://www.github.com/hydra-genetics/fusions/commit/b7b75e408ccc033cfc9f50624276dd104a47f01c))
+
 ### [0.2.2](https://www.github.com/hydra-genetics/fusions/compare/v0.2.1...v0.2.2) (2024-11-28)
 
 

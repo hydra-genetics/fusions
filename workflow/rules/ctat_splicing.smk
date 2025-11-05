@@ -57,7 +57,7 @@ rule ctat_splicing_filter:
     output:
         splicing_filtered="fusions/ctat_splicing_filter/{sample}_{type}.cancer.introns.filtered.tsv",
     params:
-        filtering_file=config.get("ctat_splicing_filter", {}).get("filtering_file", ""),  #gene, variant_name (empty = all), nr_unique_reads
+        filtering_file=config.get("ctat_splicing_filter", {}).get("filtering_file", ""),
     log:
         "fusions/ctat_splicing_filter/{sample}_{type}.cancer.introns.filtered.tsv.log",
     benchmark:

@@ -16,6 +16,13 @@ arriba_draw_fusion:
   gtf: "reference/WASH7P.gtf"
   protein_domains: "reference/protein_domains_hg19_hs37d5_GRCh37_v2.3.0.gff3"
 
+ctat_splicing_call:
+  container: "docker://hydragenetics/ctat-splicing:0.0.3"
+  ctat_genome_lib_path: "reference/"
+
+ctat_splicing_filter:
+  filtering_file: "reference/filter_ctat_splicing.tsv"
+
 filter_fuseq_wes:
   min_support: 30
   gene_white_list: "reference/fuseq_wes_gene_white_list.txt"

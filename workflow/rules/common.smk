@@ -102,4 +102,16 @@ def compile_output_list(wildcards):
             for suffix in files[prefix]
         ]
     )
+    files = {
+        "fusions/ctat_splicing_filter": [".cancer.introns.filtered.tsv"],
+    }
+    output_files.extend(
+        [
+            "%s/%s_R%s" % (prefix, sample, suffix)
+            for prefix in files.keys()
+            for sample in get_samples(samples)
+            if "R" in get_unit_types(units, sample)
+            for suffix in files[prefix]
+        ]
+    )
     return output_files

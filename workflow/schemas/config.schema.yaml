@@ -40,10 +40,6 @@ properties:
       gtf:
         type: string
         description: path to gtf file containing annotations
-    required:
-      - assembly
-      - blacklist
-      - gtf
 
   arriba_draw_fusion:
     type: object
@@ -64,10 +60,43 @@ properties:
       protein_domains:
         type: string
         description: path to protein domain file
-    required:
-      - cytobands
-      - gtf
-      - protein_domains
+
+  ctat_splicing_call:
+    type: object
+    description: parameters for ctat_splicing_call
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      ctat_genome_lib:
+        type: string
+        description: plug and play genome lib used by star-fusion.
+      extra:
+        type: string
+        description: parameters that should be forwarded
+      sample_name:
+        type: string
+        description: sample name used to name output files
+      temp_result_dir:
+        type: string
+        description: temporary directory for output files
+
+  ctat_splicing_filter:
+    type: object
+    description: parameters for ctat_splicing_filter
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      filtering_file:
+        type: string
+        description: File for filtering introns. Format is gene\tvariant_name\tnr_unique_support\n.
 
   filter_report_fuseq_wes:
     type: object
@@ -90,10 +119,6 @@ properties:
       gtf:
         type: string
         description: Path to gtf annotation file
-    required:
-      - min_support
-      - filter_on_fusiondb
-      - gtf
 
   fuseq_wes:
     type: object
@@ -113,11 +138,6 @@ properties:
       params:
         type: string
         description: Parameter file specifying filtering and other program parameters. Leave blank for default parameters.
-    required:
-      - ref_json
-      - gtfSqlite
-      - fusiondb
-      - paralogdb
 
   fusioncatcher:
     type: object
@@ -135,8 +155,6 @@ properties:
       extra:
         type: string
         description: extra parameters to rule
-    required:
-      - genome_path
 
   gene_fuse:
     type: object
@@ -257,5 +275,4 @@ properties:
       output_dir:
         type: string
         description: Output directory
-    required:
-      - genome_path
+

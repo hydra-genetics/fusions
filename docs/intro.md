@@ -19,11 +19,13 @@ The fusions module consists of programs used for finding fusions or translocatio
 
 
 ## Module input files
-Depending on the fusion caller the input files are either bam-files or fastq-files.
+Depending on the fusion caller the input files are either bam-files or fastq-files. Ctat-splicing also requires a junction file from star aligner.
 
 * `alignment/samtools_merge_bam/{sample}_{type}.bam`
+* `alignment/star/{sample}_{type}.bam`
 * `prealignment/merged/{sample}_{type}_fastq1.fastq.gz`
 * `prealignment/merged/{sample}_{type}_fastq2.fastq.gz`
+* `alignment/star/{sample}_{type}.SJ.out.tab`
 
 
 ## Module output files
@@ -35,3 +37,4 @@ The fusion results are reported in simple text format files.
 * `fusions/arriba/{sample}_{type}.fusions.tsv`
 * `fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.abridged.tsv"`
 * `fusions/fusioncatcher/{sample}_{type}/final-list_candidate-fusion-genes.hg19.txt`
+* `fusions/ctat_splicing_filter/{sample}_{type}.cancer.introns.filtered.tsv`

@@ -70,6 +70,59 @@ properties:
             type: string
             description: A .pdf file with illustrations of each called fusion
 
+  ctat_splicing_call:
+    type: object
+    description: input and output parameters for ctat_splicing_call
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bai:
+            type: string
+            description: Bam index file aligned using STAR
+          bam:
+            type: string
+            description: Bam file aligned using STAR
+          sj_tab_file:
+            type: string
+            description: Star aligner junction file
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          bai:
+            type: string
+            description: Bam index file with splicing evidence
+          bam:
+            type: string
+            description: Bam file with splicing evidence
+          cancer_splicing:
+            type: string
+            description: Result table with cancer related intron splicing
+          igv_splicing:
+            type: string
+            description: Html report showing read evidence for the cancer related intron splicings 
+
+  ctat_splicing_filter:
+    type: object
+    description: input and output parameters for ctat_splicing_filter
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          splicing:
+            type: string
+            description: List of cancer related intron splicings
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          splicing_filtered:
+            type: string
+            description: Filtered list of cancer related intron splicings
+
   filter_report_fuseq_wes:
     type: object
     description: input and output parameters for filter_report_fuseq_wes
@@ -356,5 +409,4 @@ properties:
           sp:
             type: string
             description: Alignment intermediate directory
-
 

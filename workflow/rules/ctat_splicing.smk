@@ -44,7 +44,7 @@ rule ctat_splicing_call:
         "--bam_file {input.bam} "
         "--output_prefix {params.temp_result_dir}/{params.sample_name} "
         "--sample_name {params.sample_name} "
-        "--ctat_genome_lib /data/ref_data/star-fusion/GRCh37_gencode_v19_CTAT_lib_Mar012021.plug-n-play/ctat_genome_lib_build_dir/ && "
+        "--ctat_genome_lib {params.ctat_genome_lib} && "
         "cp {params.temp_result_dir}/{params.sample_name}.cancer.introns {output.cancer_splicing} && "
         "cp {params.temp_result_dir}/{params.sample_name}.ctat-splicing.igv.html {output.igv_splicing} && "
         "cp {params.temp_result_dir}/{params.sample_name}.cancer_intron_reads.sorted.bam {output.bam} && "

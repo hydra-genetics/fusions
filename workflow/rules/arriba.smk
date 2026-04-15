@@ -40,6 +40,7 @@ rule arriba:
         "-b {input.bl} "
         "-g {input.gtf} "
         "-x {input.bam} "
+        "{params.extra} "
         "-o {output.fusions} "
         "-O {output.fusions_dis}) &> {log}"
 

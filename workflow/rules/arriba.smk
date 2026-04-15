@@ -1,4 +1,4 @@
-__author__ = "Martin Rippin"
+__author__ = "Martin Rippin, Nina Hollfelder"
 __copyright__ = "Copyright 2022, Martin Rippin"
 __email__ = "martin.rippin@scilifelab.uu.se"
 __license__ = "GPL-3"

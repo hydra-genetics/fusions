@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.2](https://github.com/hydra-genetics/fusions/compare/v0.3.1...v0.3.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* added params extra to shell ([af41ada](https://github.com/hydra-genetics/fusions/commit/af41adaa741c954d59417a04192bc66611165915))
+* integration will only be triggered manually ([a899018](https://github.com/hydra-genetics/fusions/commit/a899018d3804ec9748014f9cf5c45d5a6a77c62f))
+* integration will only be triggered manually ([f249c0b](https://github.com/hydra-genetics/fusions/commit/f249c0bd03a5359b2c5f9f4d7803f68746bd72a7))
+* need another commit ([2f9e88d](https://github.com/hydra-genetics/fusions/commit/2f9e88df33020a43c9d2ff99cc44b9f281b2780e))
+
 ## [0.3.0](https://www.github.com/hydra-genetics/fusions/compare/v0.2.2...v0.3.0) (2025-11-05)
 
 

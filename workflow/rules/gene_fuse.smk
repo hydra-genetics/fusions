@@ -73,6 +73,6 @@ rule gene_fuse_report:
     shell:
         "(head -n 2 {input.fusions} "
         "| grep unique: || [[ $? == 1 ]] "
-        "| awk -F'unique:|\)' '$2 > {params.unique_read_limit}' "
+        r"| awk -F'unique:|\)' '$2 > {params.unique_read_limit}' "
         "> {output.fusions}"
         ") &> {log}"

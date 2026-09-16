@@ -8,11 +8,11 @@ rule fuseq_wes:
     input:
         bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
         bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
-        ref_json=config.get("fuseq_wes", {}).get("ref_json", ""),
-        gtfSqlite=config.get("fuseq_wes", {}).get("gtfSqlite", ""),
-        fusiondb=config.get("fuseq_wes", {}).get("fusiondb", ""),
-        paralogdb=config.get("fuseq_wes", {}).get("paralogdb", ""),
-        params=config.get("fuseq_wes", {}).get("params", ""),
+        ref_json=lambda wildcards: get_config_value("fuseq_wes", "ref_json"),
+        gtfSqlite=lambda wildcards: get_config_value("fuseq_wes", "gtfSqlite"),
+        fusiondb=lambda wildcards: get_config_value("fuseq_wes", "fusiondb"),
+        paralogdb=lambda wildcards: get_config_value("fuseq_wes", "paralogdb"),
+        params=lambda wildcards: get_config_value("fuseq_wes", "params"),
     output:
         final_fusions=temp("fusions/fuseq_wes/{sample}_{type}/FuSeq_WES_FusionFinal.txt"),
         fusion_reads=temp("fusions/fuseq_wes/{sample}_{type}/feq_ALL.txt"),
@@ -62,12 +62,12 @@ rule filter_report_fuseq_wes:
     output:
         fusions=temp("fusions/filter_fuseq_wes/{sample}_{type}.fuseq_wes.report.csv"),
     params:
-        min_support=config.get("filter_fuseq_wes", {}).get("min_support", ""),
+        min_support=lambda wildcards: get_config_value("filter_fuseq_wes", "min_support", expect=int),
         gene_white_list=config.get("filter_fuseq_wes", {}).get("gene_white_list", ""),
         gene_fusion_black_list=config.get("filter_fuseq_wes", {}).get("gene_fusion_black_list", ""),
         transcript_black_list=config.get("filter_fuseq_wes", {}).get("transcript_black_list", ""),
-        filter_on_fusiondb=config.get("filter_fuseq_wes", {}).get("filter_on_fusiondb", ""),
-        gtf=config.get("filter_fuseq_wes", {}).get("gtf", ""),
+        filter_on_fusiondb=lambda wildcards: get_config_value("filter_fuseq_wes", "filter_on_fusiondb", expect=bool),
+        gtf=lambda wildcards: get_config_value("filter_fuseq_wes", "gtf"),
     log:
         "fusions/filter_fuseq_wes/{sample}_{type}.fuseq_wes.report.csv.log",
     benchmark:

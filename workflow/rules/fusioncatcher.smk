@@ -8,13 +8,13 @@ rule fusioncatcher:
     input:
         fq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
         fq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
-        genome_path=config.get("fusioncatcher", {}).get("genome_path", ""),
+        genome_path=lambda wildcards: get_config_value("fusioncatcher", "genome_path"),
     output:
         fusions=temp("fusions/fusioncatcher/{sample}_{type}/final-list_candidate-fusion-genes.hg19.txt"),
         fusions_summary=temp("fusions/fusioncatcher/{sample}_{type}/summary_candidate_fusions.txt"),
     params:
         output_dir=temp(directory("fusions/fusioncatcher/{sample}_{type}/")),
-        genome_path=config.get("fusioncatcher", {}).get("genome_path", ""),
+        genome_path=lambda wildcards: get_config_value("fusioncatcher", "genome_path"),
         extra=config.get("fusioncatcher", {}).get("extra", ""),
     log:
         "fusions/fusioncatcher/{sample}_{type}.final-list_candidate-fusion-genes.hg19.txt.log",

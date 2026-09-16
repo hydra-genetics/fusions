@@ -8,8 +8,8 @@ rule gene_fuse:
     input:
         fastq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
         fastq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
-        genes=config.get("gene_fuse", {}).get("genes", ""),
-        ref=config.get("gene_fuse", {}).get("fasta", ""),
+        genes=lambda wildcards: get_config_value("gene_fuse", "genes"),
+        ref=lambda wildcards: get_config_value("gene_fuse", "fasta"),
     output:
         html=temp("fusions/gene_fuse/{sample}_{type}_gene_fuse_report.html"),
         fusions=temp("fusions/gene_fuse/{sample}_{type}_gene_fuse_fusions.txt"),
@@ -73,6 +73,6 @@ rule gene_fuse_report:
     shell:
         "(head -n 2 {input.fusions} "
         "| grep unique: || [[ $? == 1 ]] "
-        "| awk -F'unique:|\)' '$2 > {params.unique_read_limit}' "
+        r"| awk -F'unique:|\)' '$2 > {params.unique_read_limit}' "
         "> {output.fusions}"
         ") &> {log}"

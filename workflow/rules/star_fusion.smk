@@ -8,7 +8,7 @@ rule star_fusion:
     input:
         fq1="prealignment/merged/{sample}_{type}_fastq1.fastq.gz",
         fq2="prealignment/merged/{sample}_{type}_fastq2.fastq.gz",
-        genome_path=config.get("star_fusion", {}).get("genome_path", ""),
+        genome_path=lambda wildcards: get_config_value("star_fusion", "genome_path"),
     output:
         bam=temp("fusions/star_fusion/{sample}_{type}/Aligned.out.bam"),
         fusions=temp("fusions/star_fusion/{sample}_{type}/star-fusion.fusion_predictions.tsv"),

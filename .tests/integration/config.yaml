@@ -23,6 +23,9 @@ ctat_splicing_call:
 ctat_splicing_filter:
   filtering_file: "reference/filter_ctat_splicing.tsv"
 
+reference:
+  fasta: "reference/HES45.fna"
+
 filter_fuseq_wes:
   min_support: 30
   gene_white_list: "reference/fuseq_wes_gene_white_list.txt"

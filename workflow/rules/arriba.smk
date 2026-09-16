@@ -8,9 +8,9 @@ rule arriba:
     input:
         bam="alignment/star/{sample}_{type}.bam",
         bai="alignment/star/{sample}_{type}.bam.bai",
-        ass=config.get("arriba", {}).get("assembly", ""),
-        gtf=config.get("arriba", {}).get("gtf", ""),
-        bl=config.get("arriba", {}).get("blacklist", ""),
+        ass=lambda wildcards: get_config_value("arriba", "assembly"),
+        gtf=lambda wildcards: get_config_value("arriba", "gtf"),
+        bl=lambda wildcards: get_config_value("arriba", "blacklist"),
     output:
         fusions=temp("fusions/arriba/{sample}_{type}.fusions.tsv"),
         fusions_dis=temp("fusions/arriba/{sample}_{type}.fusions.discarded.tsv"),
@@ -49,10 +49,10 @@ rule arriba_draw_fusion:
     input:
         bam="alignment/star/{sample}_{type}.bam",
         bai="alignment/star/{sample}_{type}.bam.bai",
-        cytobands=config.get("arriba_draw_fusion", {}).get("cytobands", ""),
+        cytobands=lambda wildcards: get_config_value("arriba_draw_fusion", "cytobands"),
         fusions="fusions/arriba/{sample}_{type}.fusions.tsv",
-        gtf=config.get("arriba_draw_fusion", {}).get("gtf", ""),
-        protein_domains=config.get("arriba_draw_fusion", {}).get("protein_domains", ""),
+        gtf=lambda wildcards: get_config_value("arriba_draw_fusion", "gtf"),
+        protein_domains=lambda wildcards: get_config_value("arriba_draw_fusion", "protein_domains"),
     output:
         pdf=temp("fusions/arriba_draw_fusion/{sample}_{type}.pdf"),
     log:

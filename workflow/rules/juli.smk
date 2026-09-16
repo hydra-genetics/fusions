@@ -13,10 +13,10 @@ rule juli_call:
         fusions=temp("fusions/juli_call/{sample}_{type}.txt"),
     params:
         extra=config.get("juli_call", {}).get("extra", ""),
-        gap_file=config.get("juli_call", {}).get("gap_file", ""),
+        gap_file=lambda wildcards: get_config_value("juli_call", "gap_file"),
         juli_version=config.get("juli_call", {}).get("juli_version", "juliv0.1.6.2"),
-        ref_genes=config.get("juli_call", {}).get("ref_genes", ""),
-        reference=config.get("reference", {}).get("fasta", ""),
+        ref_genes=lambda wildcards: get_config_value("juli_call", "ref_genes"),
+        reference=lambda wildcards: get_config_value("reference", "fasta"),
         sample_name="{sample}_{type}",
     log:
         "fusions/juli_call/{sample}_{type}.txt.log",
@@ -54,12 +54,12 @@ rule juli_annotate:
         fusions=temp("fusions/juli_call/{sample}_{type}.annotated.txt"),
         pdf=temp("fusions/juli_call/{sample}_{type}.annotated.gene.pdf"),
     params:
-        cosmic=config.get("juli_annotate", {}).get("cosmic", ""),
+        cosmic=lambda wildcards: get_config_value("juli_annotate", "cosmic"),
         extra=config.get("juli_annotate", {}).get("extra", ""),
         juli_version=config.get("juli_call", {}).get("juli_version", "juliv0.1.6.2"),
-        pfam=config.get("juli_annotate", {}).get("pfam", ""),
-        ref_genes=config.get("juli_annotate", {}).get("ref_genes", ""),
-        uniprot=config.get("juli_annotate", {}).get("uniprot", ""),
+        pfam=lambda wildcards: get_config_value("juli_annotate", "pfam"),
+        ref_genes=lambda wildcards: get_config_value("juli_annotate", "ref_genes"),
+        uniprot=lambda wildcards: get_config_value("juli_annotate", "uniprot"),
     log:
         "fusions/juli_annotate/{sample}_{type}.annotated.txt.log",
     benchmark:

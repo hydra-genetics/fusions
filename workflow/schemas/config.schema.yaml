@@ -4,19 +4,26 @@ type: object
 properties:
   samples:
     type: string
+    minLength: 1
   units:
     type: string
+    minLength: 1
   resources:
     type: string
+    minLength: 1
     description: Path to resources.yaml file
   default_container:
     type: string
+    minLength: 1
     description: name or path to a default docker/singularity container
-  required:
-    - samples
-    - units
-    - resources
-    - default_container
+  reference:
+    type: object
+    description: reference files shared by several fusion callers
+    properties:
+      fasta:
+        type: string
+        minLength: 1
+        description: path to reference fasta file
 
   arriba:
     type: object
@@ -24,21 +31,25 @@ properties:
     properties:
       assembly:
         type: string
+        minLength: 1
         description: path to assembly file
       benchmark_repeats:
         type: integer
         description: set number of times benchmark should be repeated
       blacklist:
         type: string
+        minLength: 1
         description: path to file containing a blacklist
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       extra:
         type: string
         description: extra parameters
       gtf:
         type: string
+        minLength: 1
         description: path to gtf file containing annotations
 
   arriba_draw_fusion:
@@ -50,15 +61,19 @@ properties:
         description: set number of times benchmark should be repeated
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       cytobands:
         type: string
+        minLength: 1
         description: path to cytobands file
       gtf:
         type: string
+        minLength: 1
         description: path to gtf file containing annotations
       protein_domains:
         type: string
+        minLength: 1
         description: path to protein domain file
 
   ctat_splicing_call:
@@ -70,18 +85,22 @@ properties:
         description: set number of times benchmark should be repeated
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
-      ctat_genome_lib:
+      ctat_genome_lib_path:
         type: string
+        minLength: 1
         description: plug and play genome lib used by star-fusion.
       extra:
         type: string
         description: parameters that should be forwarded
       sample_name:
         type: string
+        minLength: 1
         description: sample name used to name output files
       temp_result_dir:
         type: string
+        minLength: 1
         description: temporary directory for output files
 
   ctat_splicing_filter:
@@ -93,12 +112,13 @@ properties:
         description: set number of times benchmark should be repeated
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       filtering_file:
         type: string
         description: File for filtering introns. Format is gene\tvariant_name\tnr_unique_support\n.
 
-  filter_report_fuseq_wes:
+  filter_fuseq_wes:
     type: object
     properties:
       min_support:
@@ -118,6 +138,7 @@ properties:
         description: If True, only include fusions that are present in the Mitelman fusion database.
       gtf:
         type: string
+        minLength: 1
         description: Path to gtf annotation file
 
   fuseq_wes:
@@ -125,19 +146,26 @@ properties:
     properties:
       ref_json:
         type: string
+        minLength: 1
         description: Reference file in json format.
       gtfSqlite:
         type: string
+        minLength: 1
         description: Reference file in SQLlite format.
       fusiondb:
         type: string
+        minLength: 1
         description: Known cancer fusions from the Mitelman fusion database.
       paralogdb:
         type: string
+        minLength: 1
         description: Database of paralog genes.
       params:
         type: string
-        description: Parameter file specifying filtering and other program parameters. Leave blank for default parameters.
+        minLength: 1
+        description: |
+          Parameter file specifying filtering and other program parameters.
+          NOTE: read as an input file, so it must exist; it cannot be left blank.
 
   fusioncatcher:
     type: object
@@ -148,9 +176,11 @@ properties:
         description: set number of times benchmark should be repeated for rule
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       genome_path:
         type: string
+        minLength: 1
         description: star-fusion reference path
       extra:
         type: string
@@ -165,10 +195,22 @@ properties:
         description: set number of times benchmark should be repeated for rule
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       extra:
         type: string
         description: extra parameters to rule
+      fasta:
+        type: string
+        minLength: 1
+        description: path to reference fasta file
+      genes:
+        type: string
+        minLength: 1
+        description: path to the gene list used by GeneFuse
+    required:
+      - fasta
+      - genes
 
   gene_fuse_report:
     type: object
@@ -179,9 +221,11 @@ properties:
         description: set number of times benchmark should be repeated for rule
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       genes:
         type: string
+        minLength: 1
         description: path to gene files used by gene_fuse_report
       unique_read_limit:
         type: integer
@@ -196,18 +240,22 @@ properties:
         description: set number of times benchmark should be repeated
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       extra:
         type: string
         description: parameters that should be forwarded
       gap_file:
         type: string
+        minLength: 1
         description: gap information file from the UCSC database
       juli_version: 
         type: string
+        minLength: 1
         description: version of the R package that should be loaded 
       ref_genes:
         type: string
+        minLength: 1
         description: gene information file from the UCSC database
 
   juli_annotate:
@@ -219,21 +267,26 @@ properties:
         description: set number of times benchmark should be repeated
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       cosmic:
         type: string
+        minLength: 1
         description: cosmic data file
       extra:
         type: string
         description: parameters that should be forwarded
       pfam:
         type: string
+        minLength: 1
         description: Pfam data file
       ref_genes:
         type: string
+        minLength: 1
         description: gene information file from the UCSC database
       uniprot:
         type: string
+        minLength: 1
         description: Uniprot data file
 
   juli_filter:
@@ -245,6 +298,7 @@ properties:
         description: set number of times benchmark should be repeated
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       cosmic_filter:
         type: boolean
@@ -268,11 +322,22 @@ properties:
         description: set number of times benchmark should be repeated for rule
       container:
         type: string
+        minLength: 1
         description: name or path to docker/singularity container
       extra:
         type: string
         description: extra parameters to rule
+      genome_path:
+        type: string
+        minLength: 1
+        description: path to the STAR-Fusion genome resource library
       output_dir:
         type: string
+        minLength: 1
         description: Output directory
 
+required:
+  - samples
+  - units
+  - resources
+  - default_container

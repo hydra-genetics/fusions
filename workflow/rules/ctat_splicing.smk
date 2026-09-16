@@ -15,7 +15,7 @@ rule ctat_splicing_call:
         cancer_splicing=temp("fusions/ctat_splicing_call/{sample}_{type}.cancer.introns"),
         igv_splicing=temp("fusions/ctat_splicing_call/{sample}_{type}.ctat-splicing.igv.html"),
     params:
-        ctat_genome_lib=config.get("ctat_splicing_call", {}).get("ctat_genome_lib_path", ""),
+        ctat_genome_lib=lambda wildcards: get_config_value("ctat_splicing_call", "ctat_genome_lib_path"),
         extra=config.get("ctat_splicing_call", {}).get("extra", ""),
         sample_name="{sample}_{type}",
         temp_result_dir=temp(directory("fusions/ctat_splicing_call/ctat_out_{sample}_{type}")),

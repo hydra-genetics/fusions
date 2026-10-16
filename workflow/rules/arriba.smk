@@ -55,6 +55,8 @@ rule arriba_draw_fusion:
         protein_domains=config.get("arriba_draw_fusion", {}).get("protein_domains", ""),
     output:
         pdf=temp("fusions/arriba_draw_fusion/{sample}_{type}.pdf"),
+    params:
+        extra=config.get("arriba_draw_fusion", {}).get("extra", ""),
     log:
         "fusions/arriba_draw_fusion/{sample}_{type}.pdf.log",
     benchmark:
@@ -80,4 +82,5 @@ rule arriba_draw_fusion:
         "--output={output.pdf} "
         "--annotation={input.gtf} "
         "--cytobands={input.cytobands} "
-        "--proteinDomains={input.protein_domains}) &> {log}"
+        "--proteinDomains={input.protein_domains} "
+        "{params.extra}) &> {log}"

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-04/schema#"
+$schema: "http://json-schema.org/draft-07/schema#"
 description: row represents one dataset
 properties:
   sample:
@@ -22,11 +22,38 @@ properties:
   adapter:
     type: string
     description: one or more sequence, separated by ","
+  platform:
+    type: string
+    description: sequence platform, used to tell long-read (ONT, PACBIO) from short-read units
+  processing_unit:
+    type: string
+    description: processing unit from the bam header (long-read data)
+  barcode:
+    type: string
+    description: barcode (long-read data)
+  bam:
+    type: string
+    description: absolute path to bam file (long-read data)
+allOf:
+  - if:
+      required:
+        - platform
+      properties:
+        platform:
+          enum:
+            - ONT
+            - PACBIO
+    then:
+      required:
+        - processing_unit
+        - bam
+    else:
+      required:
+        - flowcell
+        - lane
+        - fastq1
+        - fastq2
+        - adapter
 required:
   - sample
   - type
-  - flowcell
-  - lane
-  - fastq1
-  - fastq2
-  - adapter

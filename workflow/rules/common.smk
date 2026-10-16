@@ -31,7 +31,11 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 
 ### Read and validate units file
 
-units = pandas.read_table(config["units"], dtype=str).set_index(["sample", "type", "flowcell", "lane"], drop=False)
+units = pandas.read_table(config["units"], dtype=str)
+if "platform" in units.columns and units.platform.iloc[0] in ["PACBIO", "ONT"]:
+    units = units.set_index(["sample", "type", "processing_unit", "barcode"], drop=False).sort_index()
+else:  # Illumina data, with flowcell and lane columns
+    units = units.set_index(["sample", "type", "flowcell", "lane"], drop=False)
 validate(units, schema="../schemas/units.schema.yaml")
 
 ### Set wildcard constraints
@@ -39,6 +43,7 @@ validate(units, schema="../schemas/units.schema.yaml")
 
 wildcard_constraints:
     sample="|".join(samples.index),
+    type="N|T|R",
     unit="N|T|R",
 
 

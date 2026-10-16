@@ -35,7 +35,13 @@ units = pandas.read_table(config["units"], dtype=str)
 # Validate before indexing, so that a missing column is reported as a schema
 # error and not as a KeyError from set_index.
 validate(units, schema="../schemas/units.schema.yaml")
-if "platform" in units.columns and units.platform.iloc[0] in ["PACBIO", "ONT"]:
+if "platform" in units.columns:
+    long_read = units["platform"].isin(["PACBIO", "ONT"])
+else:
+    long_read = pandas.Series(False, index=units.index)
+if long_read.any() and not long_read.all():
+    raise ValueError("units.tsv must contain either only long-read (ONT, PACBIO) or only short-read units")
+if long_read.any():
     units = units.set_index(["sample", "type", "processing_unit", "barcode"], drop=False).sort_index()
 else:  # Illumina data, with flowcell and lane columns
     units = units.set_index(["sample", "type", "flowcell", "lane"], drop=False)

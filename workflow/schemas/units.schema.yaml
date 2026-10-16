@@ -46,6 +46,7 @@ allOf:
     then:
       required:
         - processing_unit
+        - barcode
         - bam
     else:
       required:

@@ -32,11 +32,13 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 ### Read and validate units file
 
 units = pandas.read_table(config["units"], dtype=str)
+# Validate before indexing, so that a missing column is reported as a schema
+# error and not as a KeyError from set_index.
+validate(units, schema="../schemas/units.schema.yaml")
 if "platform" in units.columns and units.platform.iloc[0] in ["PACBIO", "ONT"]:
     units = units.set_index(["sample", "type", "processing_unit", "barcode"], drop=False).sort_index()
 else:  # Illumina data, with flowcell and lane columns
     units = units.set_index(["sample", "type", "flowcell", "lane"], drop=False)
-validate(units, schema="../schemas/units.schema.yaml")
 
 ### Set wildcard constraints
 

@@ -54,6 +54,9 @@ properties:
       cytobands:
         type: string
         description: path to cytobands file
+      extra:
+        type: string
+        description: additional arguments passed to draw_fusions.R
       gtf:
         type: string
         description: path to gtf file containing annotations
